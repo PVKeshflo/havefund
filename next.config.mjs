@@ -7,21 +7,21 @@ const __dirname = dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config, { nextRuntime }) => {
+  webpack: (config, { nextRuntime, webpack }) => {
     if (nextRuntime === "edge") {
       const stub = resolve(__dirname, "lib/node-stub.js");
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "node:child_process": stub,
-        "node:crypto": stub,
-        "node:fs": stub,
-        "node:fs/promises": stub,
-        "node:path": stub,
-        "node:os": stub,
-        "node:net": stub,
-        "node:tls": stub,
-        "node:stream": stub,
-      };
+
+      // Anthropic SDK v0.98 optional sub-modules import node:child_process,
+      // node:crypto, node:fs, node:path etc. which webpack can't bundle for
+      // the edge runtime. Replace every node: URI import with an empty stub.
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /^node:/,
+          (resource) => {
+            resource.request = stub;
+          }
+        )
+      );
     }
     return config;
   },
