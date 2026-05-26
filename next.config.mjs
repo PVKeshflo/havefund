@@ -8,12 +8,12 @@ const __dirname = dirname(__filename);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { nextRuntime, webpack }) => {
-    if (nextRuntime === "edge") {
+    // Only stub node: imports on Cloudflare Pages builds.
+    // Vercel's edge runtime handles node: natively; applying the stub there
+    // replaces Vercel's own polyfills and breaks the Anthropic SDK at load time.
+    if (nextRuntime === "edge" && !process.env.VERCEL) {
       const stub = resolve(__dirname, "lib/node-stub.js");
 
-      // Anthropic SDK v0.98 optional sub-modules import node:child_process,
-      // node:crypto, node:fs, node:path etc. which webpack can't bundle for
-      // the edge runtime. Replace every node: URI import with an empty stub.
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(
           /^node:/,
