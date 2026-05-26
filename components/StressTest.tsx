@@ -46,9 +46,11 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
           founderResponse: founderResp,
         }),
       });
-      const data = await res.json();
+      const text = await res.text();
+      let data: { challenge?: string; error?: string };
+      try { data = JSON.parse(text); } catch { throw new Error(`[${res.status}] ${text.slice(0, 300)}`); }
       if (!res.ok) throw new Error(data.error || "Unknown error");
-      setCurrentChallenge(data.challenge);
+      setCurrentChallenge(data.challenge ?? "");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to generate challenge.");
     } finally {
@@ -87,7 +89,9 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
             founderResponse: resp,
           }),
         });
-        const data = await res.json();
+        const evalText = await res.text();
+        let data: StressTestReport & { error?: string };
+        try { data = JSON.parse(evalText); } catch { throw new Error(`[${res.status}] ${evalText.slice(0, 300)}`); }
         if (!res.ok) throw new Error(data.error || "Unknown error");
         setReport(data);
         onComplete(data);

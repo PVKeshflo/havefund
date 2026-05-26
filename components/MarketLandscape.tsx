@@ -32,7 +32,13 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ industry, startupSummary }),
       });
-      const json = await res.json();
+      const text = await res.text();
+      let json: MarketData & { error?: string };
+      try {
+        json = JSON.parse(text);
+      } catch {
+        throw new Error(`[${res.status}] ${text.slice(0, 300)}`);
+      }
       if (!res.ok) throw new Error(json.error || "Unknown error");
       setData(json);
       onComplete(json);
