@@ -39,7 +39,13 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ country, stage, industry, startupSummary }),
       });
-      const data = await res.json();
+      const text = await res.text();
+      let data: { investors?: Investor[]; error?: string };
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error(`[${res.status}] ${text.slice(0, 300)}`);
+      }
       if (!res.ok) throw new Error(data.error || "Unknown error");
       setInvestors(data.investors || []);
       onComplete(data.investors || []);
