@@ -8,9 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ["Instrument Serif", "Georgia", "serif"],
+        mono: ["Geist Mono", "monospace"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        ink: "#0A0A0A",
+        paper: "#FFFFFF",
+        border: "#E5E5E5",
+        muted: "#A0A0A0",
+        hover: "#F5F5F5",
       },
     },
   },

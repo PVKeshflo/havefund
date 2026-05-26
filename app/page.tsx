@@ -1,100 +1,186 @@
-import Image from "next/image";
+"use client";
+
+import { useRef, useState, useEffect, useCallback } from "react";
+import StepNav from "@/components/StepNav";
+import FounderForm, { FounderBrief } from "@/components/FounderForm";
+import VCDiscovery from "@/components/VCDiscovery";
+import MarketLandscape from "@/components/MarketLandscape";
+import StressTest from "@/components/StressTest";
+import FinalOutput from "@/components/FinalOutput";
+
+interface Investor {
+  name: string;
+  focus: string;
+  stage: string;
+  location: string;
+  notablePortfolio: string[];
+  contactHint: string;
+  website: string;
+}
+
+interface MarketData {
+  marketSize: { tam: string; sam: string; som: string };
+  keyTrends: string[];
+  competitors: { name: string; positioning: string; funding: string }[];
+  tailwinds: string[];
+  risks: string[];
+}
+
+interface StressTestReport {
+  overallScore: number;
+  strengths: string[];
+  gaps: string[];
+  suggestedNarrative: string;
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [currentStep, setCurrentStep] = useState(1);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  // Step 1 state
+  const [founderBrief, setFounderBrief] = useState<FounderBrief | null>(null);
+  const [refinedEmail, setRefinedEmail] = useState("");
+  const [startupSummary, setStartupSummary] = useState<Record<string, string>>({});
+
+  // Step 2 state
+  const [investors, setInvestors] = useState<Investor[]>([]);
+
+  // Step 3 state
+  const [marketData, setMarketData] = useState<MarketData | null>(null);
+
+  // Step 4 state
+  const [stressReport, setStressReport] = useState<StressTestReport | null>(null);
+
+  // Refs for scroll-into-view
+  const step2Ref = useRef<HTMLDivElement>(null);
+  const step3Ref = useRef<HTMLDivElement>(null);
+  const step4Ref = useRef<HTMLDivElement>(null);
+  const step5Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (currentStep === 2 && step2Ref.current) {
+      step2Ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (currentStep === 3 && step3Ref.current) {
+      step3Ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (currentStep === 4 && step4Ref.current) {
+      step4Ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (currentStep === 5 && step5Ref.current) {
+      step5Ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [currentStep]);
+
+  const handleStep1Complete = useCallback((
+    brief: FounderBrief,
+    refined: string,
+    summary: Record<string, string>
+  ) => {
+    setFounderBrief(brief);
+    setRefinedEmail(refined);
+    setStartupSummary(summary);
+    setCurrentStep(2);
+  }, []);
+
+  const handleStep2Complete = useCallback((inv: Investor[]) => {
+    setInvestors(inv);
+    setCurrentStep(3);
+  }, []);
+
+  const handleStep3Complete = useCallback((data: MarketData) => {
+    setMarketData(data);
+    setCurrentStep(4);
+  }, []);
+
+  const handleStep4Complete = useCallback((report: StressTestReport) => {
+    setStressReport(report);
+    setCurrentStep(5);
+  }, []);
+
+  const handleStartOver = useCallback(() => {
+    setCurrentStep(1);
+    setFounderBrief(null);
+    setRefinedEmail("");
+    setStartupSummary({});
+    setInvestors([]);
+    setMarketData(null);
+    setStressReport(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Safety net: advance step if data arrived but onComplete was missed (e.g. after Fast Refresh)
+  useEffect(() => {
+    if (currentStep === 2 && investors.length > 0) setCurrentStep(3);
+  }, [investors, currentStep]);
+
+  useEffect(() => {
+    if (currentStep === 3 && marketData !== null) setCurrentStep(4);
+  }, [marketData, currentStep]);
+
+  return (
+    <div className="min-h-screen bg-white">
+      <StepNav currentStep={currentStep} />
+
+      <main>
+        {/* Step 1 */}
+        <FounderForm onComplete={handleStep1Complete} />
+
+        {/* Step 2 — unlocks after step 1 */}
+        <div ref={step2Ref}>
+          {currentStep >= 2 && founderBrief && (
+            <VCDiscovery
+              country={founderBrief.country}
+              stage={founderBrief.stage}
+              industry={founderBrief.industry}
+              startupSummary={startupSummary}
+              onComplete={handleStep2Complete}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          )}
+        </div>
+
+        {/* Step 3 — unlocks after step 2 */}
+        <div ref={step3Ref}>
+          {currentStep >= 3 && founderBrief && (
+            <MarketLandscape
+              industry={founderBrief.industry}
+              startupSummary={startupSummary}
+              onComplete={handleStep3Complete}
+            />
+          )}
+        </div>
+
+        {/* Step 4 — unlocks after step 3 */}
+        <div ref={step4Ref}>
+          {currentStep >= 4 && (
+            <StressTest
+              startupSummary={startupSummary}
+              onComplete={handleStep4Complete}
+            />
+          )}
+        </div>
+
+        {/* Step 5 — unlocks after step 4 */}
+        <div ref={step5Ref}>
+          {currentStep >= 5 && marketData && stressReport && (
+            <FinalOutput
+              refinedEmail={refinedEmail}
+              investors={investors}
+              marketData={marketData}
+              stressReport={stressReport}
+              onStartOver={handleStartOver}
+            />
+          )}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="border-t border-[#E5E5E5] py-8 mt-16">
+        <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
+          <span
+            className="text-[12px] tracking-widest uppercase text-[#A0A0A0]"
+          >
+            HaveFund
+          </span>
+          <span className="text-[12px] text-[#A0A0A0]">
+            Powered by Claude
+          </span>
+        </div>
       </footer>
     </div>
   );
