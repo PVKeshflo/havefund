@@ -6,7 +6,7 @@ import FounderForm, { FounderBrief } from "@/components/FounderForm";
 import VCDiscovery from "@/components/VCDiscovery";
 import MarketLandscape from "@/components/MarketLandscape";
 import StressTest from "@/components/StressTest";
-import FinalOutput from "@/components/FinalOutput";
+import GanttChart from "@/components/GanttChart";
 
 interface Investor {
   name: string;
@@ -158,12 +158,10 @@ export default function Home() {
 
         {/* Step 5 — unlocks after step 4 */}
         <div ref={step5Ref}>
-          {currentStep >= 5 && marketData && stressReport && (
-            <FinalOutput
-              refinedEmail={refinedEmail}
-              investors={investors}
-              marketData={marketData}
-              stressReport={stressReport}
+          {currentStep >= 5 && founderBrief && (
+            <GanttChart
+              startupSummary={startupSummary}
+              stage={founderBrief.stage}
               onStartOver={handleStartOver}
             />
           )}

@@ -1,11 +1,11 @@
 "use client";
 
 const STEPS = [
-  { number: 1, label: "Founder Brief" },
-  { number: 2, label: "VC Discovery" },
+  { number: 1, label: "Your Input" },
+  { number: 2, label: "Email + VC Match" },
   { number: 3, label: "Market Landscape" },
   { number: 4, label: "Stress Test" },
-  { number: 5, label: "Final Output" },
+  { number: 5, label: "Gantt Chart" },
 ];
 
 interface StepNavProps {
