@@ -21,16 +21,12 @@ interface FounderFormProps {
 
 const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Climate", "EdTech", "Other"];
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
-const WORD_LIMIT = 200;
+const CHAR_LIMIT = 250;
 
 const inputClass =
   "w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#999999] focus:outline-none focus:border-[#DC2626] transition-colors bg-white";
 
 const labelClass = "block text-[11px] tracking-widest uppercase font-bold text-[#555555] mb-2";
-
-function wordCount(text: string): number {
-  return text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
-}
 
 interface LimitedTextareaProps {
   value: string;
@@ -41,9 +37,9 @@ interface LimitedTextareaProps {
 }
 
 function LimitedTextarea({ value, onChange, rows, placeholder, required }: LimitedTextareaProps) {
-  const count = wordCount(value);
-  const isOver = count > WORD_LIMIT;
-  const isNear = count > WORD_LIMIT * 0.85;
+  const count = value.length;
+  const isOver = count > CHAR_LIMIT;
+  const isNear = count > CHAR_LIMIT * 0.85;
   return (
     <div>
       <textarea
@@ -57,7 +53,7 @@ function LimitedTextarea({ value, onChange, rows, placeholder, required }: Limit
       <p className={`text-[11px] mt-1.5 text-right font-medium ${
         isOver ? "text-[#DC2626]" : isNear ? "text-[#F59E0B]" : "text-[#555555]"
       }`}>
-        {count} / {WORD_LIMIT} words{isOver ? " — over limit" : ""}
+        {count} / {CHAR_LIMIT} chars{isOver ? " — over limit" : ""}
       </p>
     </div>
   );
@@ -81,9 +77,9 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
   const [copied, setCopied] = useState(false);
 
   const isWordLimitExceeded =
-    wordCount(form.problem) > WORD_LIMIT ||
-    wordCount(form.solution) > WORD_LIMIT ||
-    wordCount(form.traction) > WORD_LIMIT;
+    form.problem.length > CHAR_LIMIT ||
+    form.solution.length > CHAR_LIMIT ||
+    form.traction.length > CHAR_LIMIT;
 
   function set(field: keyof FounderBrief) {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -195,7 +191,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         <div>
           <label className={labelClass}>
             Problem Being Solved
-            <span className="ml-2 text-[#555555] normal-case font-normal">(max {WORD_LIMIT} words)</span>
+            <span className="ml-2 text-[#555555] normal-case font-normal">(max {CHAR_LIMIT} characters)</span>
           </label>
           <LimitedTextarea
             rows={3}
@@ -209,7 +205,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         <div>
           <label className={labelClass}>
             Solution &amp; Product
-            <span className="ml-2 text-[#555555] normal-case font-normal">(max {WORD_LIMIT} words)</span>
+            <span className="ml-2 text-[#555555] normal-case font-normal">(max {CHAR_LIMIT} characters)</span>
           </label>
           <LimitedTextarea
             rows={3}
@@ -223,7 +219,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         <div>
           <label className={labelClass}>
             Traction &amp; Key Metrics
-            <span className="ml-2 text-[#555555] normal-case font-normal">(max {WORD_LIMIT} words)</span>
+            <span className="ml-2 text-[#555555] normal-case font-normal">(max {CHAR_LIMIT} characters)</span>
           </label>
           <LimitedTextarea
             rows={2}
@@ -235,7 +231,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
 
         {isWordLimitExceeded && (
           <div className="border border-[#DC2626] rounded-lg px-4 py-3 text-[13px] text-[#DC2626] font-medium">
-            One or more fields exceed the 200-word limit. Please shorten them before continuing.
+            One or more fields exceed the 250-character limit. Please shorten them before continuing.
           </div>
         )}
 

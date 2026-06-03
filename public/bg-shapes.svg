@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 380" fill="none">
+  <!-- Dashed outer border -->
+  <rect x="15" y="15" width="310" height="350" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="8 5"/>
+
+  <!-- ══ ROW 1: Tall prisms + hollow cylinder ══ -->
+
+  <!-- Tall prism left (78, 92) outline -->
+  <path d="M78,42 L104,57 L78,72 L52,57Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M104,57 L104,127 L78,142 L78,72Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M52,57 L78,72 L78,142 L52,127Z" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- Hollow cylinder centre (170, 90) -->
+  <ellipse cx="170" cy="55" rx="33" ry="16" stroke="#DC2626" stroke-width="1.5"/>
+  <line x1="137" y1="55" x2="137" y2="125" stroke="#DC2626" stroke-width="1.5"/>
+  <line x1="203" y1="55" x2="203" y2="125" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M137,125 A33,16 0 0,0 203,125" stroke="#DC2626" stroke-width="1.5"/>
+  <ellipse cx="170" cy="55" rx="19" ry="10" stroke="#DC2626" stroke-width="1.5"/>
+  <line x1="151" y1="55" x2="151" y2="125" stroke="#DC2626" stroke-width="1.5"/>
+  <line x1="189" y1="55" x2="189" y2="125" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M151,125 A19,10 0 0,0 189,125" stroke="#DC2626" stroke-width="1.5"/>
+  <!-- Fill the ring top face -->
+  <path d="M137,55 A33,16 0 0,1 203,55 A33,16 0 0,0 137,55Z" fill="#DC2626" fill-opacity="0.15"/>
+  <path d="M151,55 A19,10 0 0,1 189,55 A19,10 0 0,0 151,55Z" fill="white"/>
+
+  <!-- Tall prism right (262, 92) outline -->
+  <path d="M262,42 L288,57 L262,72 L236,57Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M288,57 L288,127 L262,142 L262,72Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M236,57 L262,72 L262,142 L236,127Z" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- ══ ROW 2: Cubes ══ -->
+
+  <!-- Cube left (78, 205) outline -->
+  <path d="M78,175 L104,190 L78,205 L52,190Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M104,190 L104,220 L78,235 L78,205Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M52,190 L78,205 L78,235 L52,220Z" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- Cube centre (170, 205) FILLED -->
+  <path d="M170,175 L196,190 L170,205 L144,190Z" fill="#DC2626" fill-opacity="0.55" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M196,190 L196,220 L170,235 L170,205Z" fill="#DC2626" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M144,190 L170,205 L170,235 L144,220Z" fill="#DC2626" fill-opacity="0.75" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- Cube right (262, 205) outline -->
+  <path d="M262,175 L288,190 L262,205 L236,190Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M288,190 L288,220 L262,235 L262,205Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M236,190 L262,205 L262,235 L236,220Z" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- ══ ROW 3: Cubes ══ -->
+
+  <!-- Cube left (78, 310) outline -->
+  <path d="M78,280 L104,295 L78,310 L52,295Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M104,295 L104,325 L78,340 L78,310Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M52,295 L78,310 L78,340 L52,325Z" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- Cube centre (170, 310) outline -->
+  <path d="M170,280 L196,295 L170,310 L144,295Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M196,295 L196,325 L170,340 L170,310Z" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M144,295 L170,310 L170,340 L144,325Z" stroke="#DC2626" stroke-width="1.5"/>
+
+  <!-- Cube right (262, 310) FILLED -->
+  <path d="M262,280 L288,295 L262,310 L236,295Z" fill="#DC2626" fill-opacity="0.55" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M288,295 L288,325 L262,340 L262,310Z" fill="#DC2626" stroke="#DC2626" stroke-width="1.5"/>
+  <path d="M236,295 L262,310 L262,340 L236,325Z" fill="#DC2626" fill-opacity="0.75" stroke="#DC2626" stroke-width="1.5"/>
+</svg>
