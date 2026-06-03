@@ -14,27 +14,36 @@ interface StepNavProps {
 
 export default function StepNav({ currentStep }: StepNavProps) {
   return (
-    <nav className="border-b border-[#E5E5E5] bg-white sticky top-0 z-50">
-      <div className="max-w-5xl mx-auto px-6 py-4">
+    <nav className="border-b-2 border-[#0A0A0A] bg-white sticky top-0 z-50 shadow-[0px_3px_0px_0px_#0A0A0A]">
+      <div className="max-w-5xl mx-auto px-6 py-3.5">
         <div className="flex items-center justify-between">
-          <span className="text-[15px] font-bold tracking-tight text-[#0A0A0A]">
-            GoHave<span className="text-[#DC2626]">Fund</span>
-          </span>
-          <ol className="flex items-center gap-1 sm:gap-3">
+          {/* Brand — lego-stud accent on the dot */}
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#DC2626] border-2 border-[#0A0A0A] flex items-center justify-center shadow-[2px_2px_0px_0px_#0A0A0A]">
+              <div className="w-1.5 h-1.5 rounded-full bg-white/80" />
+            </div>
+            <span className="text-[15px] font-black tracking-tight text-[#0A0A0A]">
+              GoHave<span className="text-[#DC2626]">Fund</span>
+            </span>
+          </div>
+
+          {/* Step bricks */}
+          <ol className="flex items-center gap-1">
             {STEPS.map((step, i) => {
               const isDone = step.number < currentStep;
               const isCurrent = step.number === currentStep;
               const isFuture = step.number > currentStep;
 
               return (
-                <li key={step.number} className="flex items-center gap-1 sm:gap-3">
+                <li key={step.number} className="flex items-center gap-1">
                   <div className="flex items-center gap-1.5">
-                    <span
+                    {/* Step brick */}
+                    <div
                       className={`
-                        w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0
-                        ${isDone ? "bg-[#DC2626] text-white" : ""}
-                        ${isCurrent ? "border-2 border-[#DC2626] text-[#DC2626]" : ""}
-                        ${isFuture ? "border border-[#E5E5E5] text-[#555555]" : ""}
+                        w-6 h-6 border-2 border-[#0A0A0A] flex items-center justify-center text-[9px] font-black shrink-0 relative transition-all
+                        ${isDone ? "bg-[#DC2626] shadow-[2px_2px_0px_0px_#0A0A0A]" : ""}
+                        ${isCurrent ? "bg-white shadow-[2px_2px_0px_0px_#DC2626] border-[#DC2626]" : ""}
+                        ${isFuture ? "bg-white shadow-[2px_2px_0px_0px_#0A0A0A] opacity-40" : ""}
                       `}
                     >
                       {isDone ? (
@@ -42,22 +51,26 @@ export default function StepNav({ currentStep }: StepNavProps) {
                           <path d="M1 4L3 6L7 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       ) : (
-                        step.number
+                        <span className={isCurrent ? "text-[#DC2626]" : "text-[#0A0A0A]"}>
+                          {step.number}
+                        </span>
                       )}
-                    </span>
+                    </div>
+
                     <span
                       className={`
-                        hidden sm:block text-[11px] tracking-wide uppercase font-semibold
+                        hidden sm:block text-[10px] tracking-widest uppercase font-black
                         ${isCurrent ? "text-[#DC2626]" : ""}
                         ${isDone ? "text-[#0A0A0A]" : ""}
-                        ${isFuture ? "text-[#555555]" : ""}
+                        ${isFuture ? "text-[#AAAAAA]" : ""}
                       `}
                     >
                       {step.label}
                     </span>
                   </div>
+
                   {i < STEPS.length - 1 && (
-                    <span className="text-[#E5E5E5] text-xs hidden sm:block">—</span>
+                    <div className="w-4 h-0.5 bg-[#E5E5E5] border-y border-[#DDDDDD] mx-0.5 hidden sm:block" />
                   )}
                 </li>
               );
