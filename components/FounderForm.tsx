@@ -33,18 +33,19 @@ const inputClass =
 
 const labelClass = "block text-[10px] tracking-widest uppercase font-black text-[#0A0A0A] mb-2";
 
-// Single-line input with 70-char hard cap + progress bar
+// Single-line input with configurable hard cap + progress bar
 interface LimitedInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   required?: boolean;
+  limit?: number;
 }
 
-function LimitedInput({ value, onChange, placeholder, required }: LimitedInputProps) {
+function LimitedInput({ value, onChange, placeholder, required, limit = BLOCK3_LIMIT }: LimitedInputProps) {
   const count = value.length;
-  const isNear = count >= Math.floor(BLOCK3_LIMIT * 0.85);
-  const isFull = count === BLOCK3_LIMIT;
+  const isNear = count >= Math.floor(limit * 0.85);
+  const isFull = count === limit;
   return (
     <div>
       <input
@@ -54,17 +55,17 @@ function LimitedInput({ value, onChange, placeholder, required }: LimitedInputPr
         value={value}
         onChange={onChange}
         required={required}
-        maxLength={BLOCK3_LIMIT}
+        maxLength={limit}
       />
       <div className="flex items-center justify-end gap-2 mt-1.5">
         <div className="flex-1 h-1 bg-[#E5E5E5] border border-[#0A0A0A] overflow-hidden">
           <div
             className={`h-full transition-all ${isFull ? "bg-[#F59E0B]" : isNear ? "bg-[#F59E0B]" : "bg-[#DC2626]"}`}
-            style={{ width: `${(count / BLOCK3_LIMIT) * 100}%` }}
+            style={{ width: `${(count / limit) * 100}%` }}
           />
         </div>
         <p className={`text-[10px] font-black tracking-wider shrink-0 ${isNear ? "text-[#F59E0B]" : "text-[#555555]"}`}>
-          {count} / {BLOCK3_LIMIT}
+          {count} / {limit}
         </p>
       </div>
     </div>
@@ -185,22 +186,22 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label className={labelClass}>Startup Name</label>
-              <input
-                className={inputClass}
+              <LimitedInput
                 placeholder="Acme Inc."
                 value={form.startupName}
-                onChange={set("startupName")}
+                onChange={set("startupName") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
+                limit={30}
               />
             </div>
             <div>
               <label className={labelClass}>Founder / Key Person Name &amp; Role</label>
-              <input
-                className={inputClass}
+              <LimitedInput
                 placeholder="Jane Doe, CEO &amp; Co-founder"
                 value={form.founderInfo}
-                onChange={set("founderInfo")}
+                onChange={set("founderInfo") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
+                limit={100}
               />
             </div>
           </div>
