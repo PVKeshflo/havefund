@@ -5,7 +5,7 @@ import FetchingNotice from "./FetchingNotice";
 
 export interface FounderBrief {
   startupName: string;
-  oneLiner: string;
+  founderInfo: string;
   industry: string;
   country: string;
   stage: string;
@@ -105,7 +105,7 @@ function BrickBlock({
 export default function FounderForm({ onComplete }: FounderFormProps) {
   const [form, setForm] = useState<FounderBrief>({
     startupName: "",
-    oneLiner: "",
+    founderInfo: "",
     industry: "SaaS",
     country: "",
     stage: "Seed",
@@ -194,12 +194,12 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
               />
             </div>
             <div>
-              <label className={labelClass}>One-liner / Tagline</label>
+              <label className={labelClass}>Founder / Key Person Name &amp; Role</label>
               <input
                 className={inputClass}
-                placeholder="The Stripe for insurance claims"
-                value={form.oneLiner}
-                onChange={set("oneLiner")}
+                placeholder="Jane Doe, CEO &amp; Co-founder"
+                value={form.founderInfo}
+                onChange={set("founderInfo")}
                 required
               />
             </div>

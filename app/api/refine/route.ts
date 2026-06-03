@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {
       startupName,
-      oneLiner,
+      founderInfo,
       industry,
       country,
       stage,
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
 FOUNDER BRIEF:
 - Startup: ${startupName}
-- One-liner: ${oneLiner}
+- Founder / Key Person: ${founderInfo}
 - Industry: ${industry}
 - Country: ${country}
 - Stage: ${stage}
