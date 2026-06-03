@@ -338,7 +338,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         {/* Block 05 — Traction */}
         <BrickBlock accentColor="red" label="Block 05 — Traction">
           <div>
-            <label className={labelClass}>Financials Year to Date (MRR / Churn / Runway)</label>
+            <label className={labelClass}>Financials (MRR, CAC, LTV, Retention Rate, Burn Rate, Runway)</label>
             <LimitedInput
               placeholder="e.g. $18k MRR, 3% churn, 14 months runway"
               value={form.financialsYTD}

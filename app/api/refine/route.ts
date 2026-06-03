@@ -64,7 +64,7 @@ FOUNDER BRIEF:
 - Success metric: ${successMetric}
 - Why not done before: ${whyNotDoneBefore}
 - Defensibility: ${defensibility}
-- Financials YTD (MRR/Churn/Runway): ${financialsYTD}
+- Financials (MRR/CAC/LTV/Retention/Burn/Runway): ${financialsYTD}
 - Milestones achieved: ${milestonesAchieved}
 
 Return ONLY valid JSON with this exact structure:
