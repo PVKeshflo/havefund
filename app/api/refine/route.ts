@@ -23,9 +23,27 @@ export async function POST(req: NextRequest) {
       defensibility,
     } = body;
 
-    const prompt = `You are an expert startup pitch advisor. Given the following founder brief, do two things:
+    const prompt = `You are a world-class startup pitch writer known for emails that actually get replies. Given the following founder brief, do two things:
 
-1. Write a sharp, compelling investor email/post from scratch. Keep it concise, specific, and investor-ready. Lead with the problem urgency and impact, be clear about the ask. Under 200 words.
+1. Write a punchy, memorable investor email. Follow this exact structure:
+
+   HOOK (1–2 sentences): Open with a striking, specific fact, a surprising number, or a vivid scene that makes the reader feel the pain instantly. Do NOT start with "I" or the company name. Make them stop scrolling.
+
+   PROBLEM + STAKES (2–3 sentences): Briefly explain who suffers, how often, and what it costs them. Be concrete — use the actual numbers from the brief.
+
+   SOLUTION + WHY NOW (2–3 sentences): What you built, why it works, and why the window is open right now (what changed that makes this possible today).
+
+   DEFENSIBILITY (1 sentence): Why you and not someone else with deeper pockets.
+
+   THE ASK (1–2 sentences): Stage, amount raising, what the money does. Be direct.
+
+   Rules:
+   - Under 200 words total
+   - Zero corporate buzzwords (no "synergy", "disrupt", "leverage", "ecosystem")
+   - No boring openers like "I hope this email finds you well" or "We are building X for Y"
+   - Vary sentence length — mix punchy short sentences with one longer one for rhythm
+   - Write like a human, not a pitch deck
+   - Make it feel urgent and specific to THIS startup, not a template
 
 2. Extract a structured startup summary for downstream analysis.
 
