@@ -26,19 +26,12 @@ interface MarketData {
   risks: string[];
 }
 
-interface StressTestReport {
-  overallScore: number;
-  strengths: string[];
-  gaps: string[];
-  suggestedNarrative: string;
-}
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1 state
   const [founderBrief, setFounderBrief] = useState<FounderBrief | null>(null);
-  const [refinedEmail, setRefinedEmail] = useState("");
   const [startupSummary, setStartupSummary] = useState<Record<string, string>>({});
 
   // Step 2 state
@@ -47,8 +40,7 @@ export default function Home() {
   // Step 3 state
   const [marketData, setMarketData] = useState<MarketData | null>(null);
 
-  // Step 4 state
-  const [stressReport, setStressReport] = useState<StressTestReport | null>(null);
+  // Step 4 state — report value not consumed downstream, step advance is sufficient
 
   // Refs for scroll-into-view
   const step2Ref = useRef<HTMLDivElement>(null);
@@ -70,11 +62,10 @@ export default function Home() {
 
   const handleStep1Complete = useCallback((
     brief: FounderBrief,
-    refined: string,
+    _refined: string,
     summary: Record<string, string>
   ) => {
     setFounderBrief(brief);
-    setRefinedEmail(refined);
     setStartupSummary(summary);
     setCurrentStep(2);
   }, []);
@@ -89,19 +80,16 @@ export default function Home() {
     setCurrentStep(4);
   }, []);
 
-  const handleStep4Complete = useCallback((report: StressTestReport) => {
-    setStressReport(report);
+  const handleStep4Complete = useCallback(() => {
     setCurrentStep(5);
   }, []);
 
   const handleStartOver = useCallback(() => {
     setCurrentStep(1);
     setFounderBrief(null);
-    setRefinedEmail("");
     setStartupSummary({});
     setInvestors([]);
     setMarketData(null);
-    setStressReport(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
