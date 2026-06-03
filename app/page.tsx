@@ -14,7 +14,8 @@ interface Investor {
   stage: string;
   location: string;
   notablePortfolio: string[];
-  contactHint: string;
+  activeFund: string;
+  lastInvestment: string;
   website: string;
 }
 

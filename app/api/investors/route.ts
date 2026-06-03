@@ -42,13 +42,14 @@ Return ONLY valid JSON with this exact structure:
       "stage": "Preferred stage(s)",
       "location": "City, Country",
       "notablePortfolio": ["Company 1", "Company 2", "Company 3"],
-      "contactHint": "Outreach approach e.g. warm intro preferred / open cold email / active on Twitter",
+      "activeFund": "Current active fund name, size, and vintage year e.g. Accel XIV ($650M, 2023)",
+      "lastInvestment": "Most recent known investment e.g. Mistral AI — Series B, Dec 2023",
       "website": "https://..."
     }
   ]
 }
 
-Use only verified knowledge of real, currently-active VC firms. Be specific and accurate about portfolio companies and focus areas. Include a mix of local/regional and global funds where confident they are still deploying.`;
+Use only verified knowledge of real, currently-active VC firms. Be specific and accurate about portfolio companies, active fund details, and recent investments. Include a mix of local/regional and global funds where confident they are still deploying.`;
 
     const message = await anthropic.messages.create({
       model: MODEL,

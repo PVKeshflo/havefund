@@ -10,7 +10,8 @@ interface Investor {
   stage: string;
   location: string;
   notablePortfolio: string[];
-  contactHint: string;
+  activeFund: string;
+  lastInvestment: string;
   website: string;
 }
 
@@ -26,9 +27,6 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
   const [investors, setInvestors] = useState<Investor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [outreachMap, setOutreachMap] = useState<Record<string, string>>({});
-  const [outreachLoading, setOutreachLoading] = useState<Record<string, boolean>>({});
-  const [copiedMap, setCopiedMap] = useState<Record<string, boolean>>({});
 
   async function fetchInvestors() {
     setLoading(true);
@@ -58,63 +56,41 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
 
   useEffect(() => { fetchInvestors(); }, [onComplete]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  async function draftOutreach(investor: Investor) {
-    setOutreachLoading((prev) => ({ ...prev, [investor.name]: true }));
-    try {
-      const res = await fetch("/api/draft-outreach", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ investor, startupSummary }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Unknown error");
-      setOutreachMap((prev) => ({ ...prev, [investor.name]: data.email }));
-    } catch {
-      setOutreachMap((prev) => ({ ...prev, [investor.name]: "Failed to generate. Please try again." }));
-    } finally {
-      setOutreachLoading((prev) => ({ ...prev, [investor.name]: false }));
-    }
-  }
-
-  async function copyOutreach(name: string, text: string) {
-    await navigator.clipboard.writeText(text);
-    setCopiedMap((prev) => ({ ...prev, [name]: true }));
-    setTimeout(() => setCopiedMap((prev) => ({ ...prev, [name]: false })), 2000);
-  }
-
   return (
-    <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
-      <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 02</p>
-        <h2
-          className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4"
-          
-        >
-          VC Discovery
+    <section className="max-w-2xl mx-auto px-6 py-16 border-t-2 border-[#0A0A0A]">
+      <div className="mb-10">
+        <div className="inline-flex items-center gap-2 bg-[#DC2626] text-white text-[10px] font-black tracking-widest uppercase px-3 py-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0px_0px_#0A0A0A] mb-5">
+          {[0, 1].map((i) => (
+            <div key={i} className="w-2.5 h-2.5 rounded-full bg-white/30 border border-white/50 flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-white/70" />
+            </div>
+          ))}
+          Step 02
+        </div>
+        <h2 className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-3">
+          Email + VC Match
         </h2>
-        <p className="text-[15px] text-[#555555] leading-relaxed">
-          Investors matched to your stage, industry, and geography — with personalised outreach drafts.
+        <p className="text-[15px] text-[#555555] leading-relaxed border-l-4 border-[#DC2626] pl-4">
+          Investors actively deploying in your stage, industry, and geography — with their live fund details.
         </p>
       </div>
 
       {loading && (
-        <div>
+        <div className="space-y-4">
           <FetchingNotice
             title="Researching investors for your startup…"
             detail={`Matching ${stage} funds active in ${country} and ${industry} — this takes 15–30 seconds.`}
           />
-          <div className="space-y-6">
-            {Array.from({ length: 4 }).map((_, i) => <CardSkeleton key={i} />)}
-          </div>
+          {Array.from({ length: 4 }).map((_, i) => <CardSkeleton key={i} />)}
         </div>
       )}
 
       {error && !loading && (
-        <div className="border border-[#E5E5E5] px-6 py-8 text-center">
+        <div className="border-2 border-[#0A0A0A] shadow-[3px_3px_0px_0px_#0A0A0A] px-6 py-8 text-center bg-white">
           <p className="text-[14px] text-[#0A0A0A] mb-4">{error}</p>
           <button
             onClick={fetchInvestors}
-            className="text-[11px] tracking-widest uppercase border border-[#0A0A0A] px-6 py-3 hover:bg-[#0A0A0A] hover:text-white transition-colors"
+            className="text-[11px] tracking-widest uppercase font-black border-2 border-[#0A0A0A] px-6 py-3 shadow-[3px_3px_0px_0px_#0A0A0A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#0A0A0A] transition-all"
           >
             Retry
           </button>
@@ -122,91 +98,100 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
       )}
 
       {!loading && !error && investors.length === 0 && (
-        <div className="border border-[#E5E5E5] px-6 py-8 text-center">
-          <p className="text-[14px] text-[#555555]">No investors found for these criteria.</p>
-          <button onClick={fetchInvestors} className="mt-4 text-[11px] tracking-widest uppercase underline underline-offset-2">
+        <div className="border-2 border-[#0A0A0A] shadow-[3px_3px_0px_0px_#0A0A0A] px-6 py-8 text-center bg-white">
+          <p className="text-[14px] text-[#555555] mb-4">No investors found for these criteria.</p>
+          <button
+            onClick={fetchInvestors}
+            className="text-[11px] tracking-widest uppercase font-black border-2 border-[#0A0A0A] px-6 py-3 shadow-[3px_3px_0px_0px_#0A0A0A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#0A0A0A] transition-all"
+          >
             Try Again
           </button>
         </div>
       )}
 
       {!loading && investors.length > 0 && (
-        <div className="space-y-px border border-[#E5E5E5]">
-          {investors.map((inv) => (
-            <div key={inv.name} className="border-b border-[#E5E5E5] last:border-0">
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <div>
-                    <h3
-                      className="text-[22px] leading-tight text-[#0A0A0A] mb-1"
-                      
-                    >
-                      {inv.name}
-                    </h3>
-                    <div className="flex flex-wrap gap-2 items-center">
-                      <span className="text-[10px] tracking-widest uppercase border border-[#E5E5E5] px-2 py-0.5 text-[#555555]">
-                        {inv.stage}
-                      </span>
-                      <span className="text-[12px] text-[#555555]">{inv.location}</span>
-                    </div>
+        <div className="space-y-3">
+          {investors.map((inv, idx) => (
+            <div
+              key={inv.name}
+              className="border-2 border-[#0A0A0A] shadow-[4px_4px_0px_0px_#0A0A0A] bg-white"
+            >
+              {/* Card header — lego brick strip */}
+              <div className="bg-[#DC2626] px-4 py-2.5 border-b-2 border-[#0A0A0A] flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    {[0, 1, 2].map((i) => (
+                      <div key={i} className="w-3 h-3 rounded-full bg-white/25 border border-white/50 flex items-center justify-center">
+                        <div className="w-1 h-1 rounded-full bg-white/60" />
+                      </div>
+                    ))}
                   </div>
+                  <span className="text-[10px] tracking-widest uppercase font-black text-white">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] tracking-widest uppercase font-black text-white/70 border border-white/30 px-2 py-0.5">
+                    {inv.stage}
+                  </span>
                   {inv.website && (
                     <a
                       href={inv.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] tracking-widest uppercase text-[#555555] hover:text-[#0A0A0A] transition-colors shrink-0"
+                      className="text-white/80 hover:text-white text-[13px] transition-colors"
                     >
                       ↗
                     </a>
                   )}
                 </div>
+              </div>
 
-                <p className="text-[13px] text-[#0A0A0A] leading-relaxed mb-3">{inv.focus}</p>
+              {/* Card body */}
+              <div className="p-5 space-y-4">
+                {/* Name + location */}
+                <div>
+                  <h3 className="text-[20px] font-black text-[#0A0A0A] leading-tight">{inv.name}</h3>
+                  <p className="text-[12px] text-[#555555] mt-0.5">{inv.location}</p>
+                </div>
 
+                {/* Focus */}
+                <p className="text-[13px] text-[#0A0A0A] leading-relaxed">{inv.focus}</p>
+
+                {/* Portfolio tags */}
                 {inv.notablePortfolio?.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="flex flex-wrap gap-1.5">
                     {inv.notablePortfolio.map((co) => (
-                      <span key={co} className="text-[11px] text-[#555555] bg-[#F5F5F5] px-2 py-0.5">
+                      <span
+                        key={co}
+                        className="text-[10px] font-black uppercase tracking-wide text-[#0A0A0A] border-2 border-[#0A0A0A] px-2 py-0.5 shadow-[1px_1px_0px_0px_#0A0A0A]"
+                      >
                         {co}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <p className="text-[12px] text-[#555555] italic mb-4">{inv.contactHint}</p>
-
-                <button
-                  onClick={() => draftOutreach(inv)}
-                  disabled={outreachLoading[inv.name] || !!outreachMap[inv.name]}
-                  className="text-[11px] tracking-widest uppercase border border-[#0A0A0A] px-4 py-2 hover:bg-[#0A0A0A] hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  {outreachLoading[inv.name]
-                    ? "Drafting..."
-                    : outreachMap[inv.name]
-                    ? "Drafted ✓"
-                    : "Draft Outreach →"}
-                </button>
-              </div>
-
-              {outreachMap[inv.name] && (
-                <div className="border-t border-[#E5E5E5] bg-[#F5F5F5] p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] tracking-widest uppercase text-[#555555]">
-                      Cold Email Draft
-                    </span>
-                    <button
-                      onClick={() => copyOutreach(inv.name, outreachMap[inv.name])}
-                      className="text-[11px] tracking-widest uppercase border border-[#E5E5E5] bg-white px-3 py-1.5 hover:bg-[#0A0A0A] hover:text-white hover:border-[#0A0A0A] transition-colors"
-                    >
-                      {copiedMap[inv.name] ? "Copied ✓" : "Copy"}
-                    </button>
-                  </div>
-                  <pre className="text-[13px] leading-relaxed text-[#0A0A0A] whitespace-pre-wrap font-sans">
-                    {outreachMap[inv.name]}
-                  </pre>
+                {/* Active fund + last investment */}
+                <div className="space-y-2 pt-1">
+                  {inv.activeFund && (
+                    <div className="flex items-start gap-3 border-2 border-[#0A0A0A] px-3 py-2.5 shadow-[2px_2px_0px_0px_#0A0A0A]">
+                      <span className="text-[9px] font-black tracking-widest uppercase text-white bg-[#0A0A0A] px-2 py-1 shrink-0 mt-0.5">
+                        Fund
+                      </span>
+                      <p className="text-[12px] text-[#0A0A0A] leading-snug">{inv.activeFund}</p>
+                    </div>
+                  )}
+                  {inv.lastInvestment && (
+                    <div className="flex items-start gap-3 border-2 border-[#DC2626] px-3 py-2.5 shadow-[2px_2px_0px_0px_#DC2626]">
+                      <span className="text-[9px] font-black tracking-widest uppercase text-white bg-[#DC2626] px-2 py-1 shrink-0 mt-0.5">
+                        Last
+                      </span>
+                      <p className="text-[12px] text-[#0A0A0A] leading-snug">{inv.lastInvestment}</p>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
