@@ -6,7 +6,7 @@ import FounderForm, { FounderBrief } from "@/components/FounderForm";
 import VCDiscovery from "@/components/VCDiscovery";
 import MarketLandscape from "@/components/MarketLandscape";
 import StressTest from "@/components/StressTest";
-import GanttChart from "@/components/GanttChart";
+import FundraiseAutomation from "@/components/FundraiseAutomation";
 
 interface Investor {
   name: string;
@@ -26,21 +26,28 @@ interface MarketData {
   risks: string[];
 }
 
+interface StressTestReport {
+  overallScore: number;
+  strengths: string[];
+  gaps: string[];
+  suggestedNarrative: string;
+}
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Step 1 state
+  // Step 1
   const [founderBrief, setFounderBrief] = useState<FounderBrief | null>(null);
   const [startupSummary, setStartupSummary] = useState<Record<string, string>>({});
 
-  // Step 2 state
+  // Step 2
   const [investors, setInvestors] = useState<Investor[]>([]);
 
-  // Step 3 state
+  // Step 3
   const [marketData, setMarketData] = useState<MarketData | null>(null);
 
-  // Step 4 state — report value not consumed downstream, step advance is sufficient
+  // Step 4
+  const [stressReport, setStressReport] = useState<StressTestReport | null>(null);
 
   // Refs for scroll-into-view
   const step2Ref = useRef<HTMLDivElement>(null);
@@ -80,7 +87,8 @@ export default function Home() {
     setCurrentStep(4);
   }, []);
 
-  const handleStep4Complete = useCallback(() => {
+  const handleStep4Complete = useCallback((report: StressTestReport) => {
+    setStressReport(report);
     setCurrentStep(5);
   }, []);
 
@@ -90,6 +98,7 @@ export default function Home() {
     setStartupSummary({});
     setInvestors([]);
     setMarketData(null);
+    setStressReport(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -146,10 +155,11 @@ export default function Home() {
 
         {/* Step 5 — unlocks after step 4 */}
         <div ref={step5Ref}>
-          {currentStep >= 5 && founderBrief && (
-            <GanttChart
+          {currentStep >= 5 && (
+            <FundraiseAutomation
+              stressReport={stressReport}
               startupSummary={startupSummary}
-              stage={founderBrief.stage}
+              investors={investors}
               onStartOver={handleStartOver}
             />
           )}
