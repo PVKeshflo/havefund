@@ -5,7 +5,7 @@ const STEPS = [
   { number: 2, label: "Email + VC Match" },
   { number: 3, label: "Market Landscape" },
   { number: 4, label: "Stress Test" },
-  { number: 5, label: "Fundraise Auto." },
+  { number: 5, label: "Auto-Fundraise" },
 ];
 
 interface StepNavProps {
