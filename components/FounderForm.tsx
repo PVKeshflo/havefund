@@ -14,6 +14,10 @@ export interface FounderBrief {
   problemFrequency: string;
   problemImpact: string;
   problemSufferers: string;
+  solutionApproach: string;
+  successMetric: string;
+  whyNotDoneBefore: string;
+  defensibility: string;
 }
 
 interface FounderFormProps {
@@ -110,6 +114,10 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     problemFrequency: "",
     problemImpact: "",
     problemSufferers: "",
+    solutionApproach: "",
+    successMetric: "",
+    whyNotDoneBefore: "",
+    defensibility: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -274,6 +282,49 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
               placeholder="e.g. SME owners, their suppliers, and employees"
               value={form.problemSufferers}
               onChange={set("problemSufferers") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+            />
+          </div>
+        </BrickBlock>
+
+        {/* Block 04 — Solution */}
+        <BrickBlock accentColor="red" label="Block 04 — Solution">
+          <div>
+            <label className={labelClass}>How are you solving it?</label>
+            <LimitedInput
+              placeholder="e.g. AI-powered invoice financing in under 24 hrs"
+              value={form.solutionApproach}
+              onChange={set("solutionApproach") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>What is the metric for success?</label>
+            <LimitedInput
+              placeholder="e.g. Time-to-fund under 24 hrs, default rate below 1%"
+              value={form.successMetric}
+              onChange={set("successMetric") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Why has it not been done before?</label>
+            <LimitedInput
+              placeholder="e.g. Required real-time ERP data access — now available"
+              value={form.whyNotDoneBefore}
+              onChange={set("whyNotDoneBefore") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Can others with more resources do this better?</label>
+            <LimitedInput
+              placeholder="e.g. Banks lack speed; Big Tech lacks lending licences"
+              value={form.defensibility}
+              onChange={set("defensibility") as (e: React.ChangeEvent<HTMLInputElement>) => void}
               required
             />
           </div>

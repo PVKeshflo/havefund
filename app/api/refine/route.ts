@@ -17,6 +17,10 @@ export async function POST(req: NextRequest) {
       problemFrequency,
       problemImpact,
       problemSufferers,
+      solutionApproach,
+      successMetric,
+      whyNotDoneBefore,
+      defensibility,
     } = body;
 
     const prompt = `You are an expert startup pitch advisor. Given the following founder brief, do two things:
@@ -36,6 +40,10 @@ FOUNDER BRIEF:
 - How often it happens: ${problemFrequency}
 - Measurable impact: ${problemImpact}
 - Who suffers / pays: ${problemSufferers}
+- Solution approach: ${solutionApproach}
+- Success metric: ${successMetric}
+- Why not done before: ${whyNotDoneBefore}
+- Defensibility: ${defensibility}
 
 Return ONLY valid JSON with this exact structure:
 {
