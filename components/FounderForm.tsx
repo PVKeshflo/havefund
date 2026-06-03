@@ -26,7 +26,7 @@ interface FounderFormProps {
 
 const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Climate", "EdTech", "Other"];
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
-const BLOCK3_LIMIT = 70;
+const BLOCK3_LIMIT = 50;
 
 const inputClass =
   "w-full border-2 border-[#0A0A0A] px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#AAAAAA] focus:outline-none focus:border-[#DC2626] transition-all bg-white shadow-[3px_3px_0px_0px_#0A0A0A] focus:shadow-[3px_3px_0px_0px_#DC2626]";
@@ -201,7 +201,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.founderInfo}
                 onChange={set("founderInfo") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={100}
+                limit={50}
               />
             </div>
           </div>
