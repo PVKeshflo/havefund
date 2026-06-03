@@ -207,7 +207,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         </BrickBlock>
 
         {/* Block 02 — Details */}
-        <BrickBlock accentColor="black" label="Block 02 — Details">
+        <BrickBlock accentColor="red" label="Block 02 — Details">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div>
               <label className={labelClass}>Industry</label>

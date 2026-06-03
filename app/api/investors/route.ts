@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const { country, stage, industry, startupSummary } = await req.json();
 
-    const prompt = `You are a venture capital research expert with deep knowledge of the global VC ecosystem. Return 8-12 real venture capital firms that would be a strong fit for this startup.
+    const prompt = `You are a venture capital research expert with deep, current knowledge of the global VC ecosystem. Return 8-12 real venture capital firms that are a strong fit for this startup.
 
 STARTUP CONTEXT:
 - Name: ${startupSummary.name}
@@ -17,11 +17,21 @@ STARTUP CONTEXT:
 - One-liner: ${startupSummary.oneLiner}
 - Unique angle: ${startupSummary.uniqueAngle}
 
-Find VCs that:
-1. Invest in ${industry} companies
-2. Invest at ${stage} stage
-3. Are active in ${country} or invest globally from that region
-4. Would genuinely resonate with this startup's thesis
+STRICT CRITERIA — only include a VC if ALL of the following are true:
+1. They invest in ${industry} companies
+2. They invest at ${stage} stage
+3. They are geographically active in ${country} or explicitly invest in that region
+4. They are CURRENTLY and ACTIVELY deploying capital from an open, live fund as of 2024–2025
+5. Their fund has NOT been fully deployed, closed, wound down, or put on hold
+
+HARD EXCLUSIONS — do NOT list any of the following:
+- Funds that have finished deploying their latest vehicle (fully deployed)
+- Firms that have announced they are winding down or have shut
+- Funds older than ~2020 with no follow-on vehicle raised since
+- Corporate VCs whose parent company has shut or pivoted away from VC
+- Any firm you are not confident is still making new investments today
+
+For each firm you are uncertain about, omit it rather than guess.
 
 Return ONLY valid JSON with this exact structure:
 {
@@ -38,7 +48,7 @@ Return ONLY valid JSON with this exact structure:
   ]
 }
 
-Use your knowledge of real VC firms. Be specific and accurate about portfolio companies and focus areas. Include a mix of local/regional and global funds.`;
+Use only verified knowledge of real, currently-active VC firms. Be specific and accurate about portfolio companies and focus areas. Include a mix of local/regional and global funds where confident they are still deploying.`;
 
     const message = await anthropic.messages.create({
       model: MODEL,
