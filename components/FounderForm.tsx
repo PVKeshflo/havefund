@@ -24,9 +24,9 @@ const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Cl
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
 
 const inputClass =
-  "w-full border border-[#E5E5E5] px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#A0A0A0] focus:outline-none focus:border-[#0A0A0A] transition-colors bg-white";
+  "w-full border border-[#E5E5E5] px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#555555] focus:outline-none focus:border-[#0A0A0A] transition-colors bg-white";
 
-const labelClass = "block text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-2";
+const labelClass = "block text-[11px] tracking-widest uppercase text-[#555555] mb-2";
 
 export default function FounderForm({ onComplete }: FounderFormProps) {
   const [form, setForm] = useState<FounderBrief>({
@@ -83,14 +83,14 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
   return (
     <section className="max-w-2xl mx-auto px-6 py-16">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-3">Step 01</p>
+        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 01</p>
         <h1
           className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
           style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
         >
           Founder Brief
         </h1>
-        <p className="text-[15px] text-[#A0A0A0] leading-relaxed">
+        <p className="text-[15px] text-[#555555] leading-relaxed">
           Tell us about your startup. We&apos;ll refine your investor communication and unlock the full analysis suite.
         </p>
       </div>

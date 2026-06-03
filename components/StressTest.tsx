@@ -111,14 +111,14 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-3">Step 04</p>
+        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 04</p>
         <h2
           className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
           style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
         >
           Stress Test
         </h2>
-        <p className="text-[15px] text-[#A0A0A0] leading-relaxed">
+        <p className="text-[15px] text-[#555555] leading-relaxed">
           Three rounds with a skeptical investor. Defend your thesis. Sharpen your narrative.
         </p>
       </div>
@@ -130,7 +130,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
             <div
               key={r}
               className={`h-1 flex-1 transition-colors ${
-                r < round ? "bg-[#0A0A0A]" : r === round ? "bg-[#A0A0A0]" : "bg-[#E5E5E5]"
+                r < round ? "bg-[#0A0A0A]" : r === round ? "bg-[#555555]" : "bg-[#E5E5E5]"
               }`}
             />
           ))}
@@ -152,7 +152,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
               }`}
             >
               {msg.type === "investor" && (
-                <p className="text-[10px] tracking-widest uppercase text-[#A0A0A0] mb-2">
+                <p className="text-[10px] tracking-widest uppercase text-[#555555] mb-2">
                   {"roundLabel" in msg ? msg.roundLabel : ""} — Investor
                 </p>
               )}
@@ -174,7 +174,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
         {!report && (
           <div className="flex justify-start">
             <div className="max-w-[85%] border border-[#E5E5E5] bg-white px-5 py-4">
-              <p className="text-[10px] tracking-widest uppercase text-[#A0A0A0] mb-2">
+              <p className="text-[10px] tracking-widest uppercase text-[#555555] mb-2">
                 Round {round} — Investor
               </p>
               {challengeLoading ? (
@@ -220,7 +220,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
         <div className="border border-[#E5E5E5] focus-within:border-[#0A0A0A] transition-colors">
           <textarea
             rows={3}
-            className="w-full px-5 py-4 text-[14px] text-[#0A0A0A] placeholder-[#A0A0A0] resize-none focus:outline-none"
+            className="w-full px-5 py-4 text-[14px] text-[#0A0A0A] placeholder-[#555555] resize-none focus:outline-none"
             placeholder="Your response..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -229,7 +229,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
             }}
           />
           <div className="flex items-center justify-between border-t border-[#E5E5E5] px-5 py-3">
-            <span className="text-[11px] text-[#A0A0A0]">⌘↵ to submit</span>
+            <span className="text-[11px] text-[#555555]">⌘↵ to submit</span>
             <button
               onClick={handleSubmitResponse}
               disabled={!input.trim() || submitting}
@@ -270,12 +270,12 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
                 Stress Test Report
               </h3>
               <div className="text-right">
-                <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-0.5">Overall Score</p>
+                <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-0.5">Overall Score</p>
                 <p
                   className="text-[36px] leading-none text-[#0A0A0A]"
                   style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
                 >
-                  {report.overallScore}<span className="text-[20px] text-[#A0A0A0]">/10</span>
+                  {report.overallScore}<span className="text-[20px] text-[#555555]">/10</span>
                 </p>
               </div>
             </div>
@@ -288,22 +288,22 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2">
             <div className="p-6 border-b sm:border-b-0 sm:border-r border-[#E5E5E5]">
-              <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-4">Strengths</p>
+              <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-4">Strengths</p>
               <ul className="space-y-3">
                 {report.strengths.map((s, i) => (
                   <li key={i} className="flex gap-3 text-[13px] text-[#0A0A0A] leading-relaxed">
-                    <span className="text-[#A0A0A0] shrink-0">+</span>
+                    <span className="text-[#555555] shrink-0">+</span>
                     {s}
                   </li>
                 ))}
               </ul>
             </div>
             <div className="p-6">
-              <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-4">Gaps to Address</p>
+              <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-4">Gaps to Address</p>
               <ul className="space-y-3">
                 {report.gaps.map((g, i) => (
                   <li key={i} className="flex gap-3 text-[13px] text-[#0A0A0A] leading-relaxed">
-                    <span className="text-[#A0A0A0] shrink-0">△</span>
+                    <span className="text-[#555555] shrink-0">△</span>
                     {g}
                   </li>
                 ))}

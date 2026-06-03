@@ -59,14 +59,14 @@ export default function FinalOutput({
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-3">Step 05</p>
+        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 05</p>
         <h2
           className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
           style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
         >
           Final Output
         </h2>
-        <p className="text-[15px] text-[#A0A0A0] leading-relaxed">
+        <p className="text-[15px] text-[#555555] leading-relaxed">
           Everything refined and ready. Your investor package, distilled.
         </p>
       </div>
@@ -124,11 +124,11 @@ export default function FinalOutput({
                       >
                         {inv.name}
                       </p>
-                      <span className="text-[10px] tracking-widest uppercase border border-[#E5E5E5] px-2 py-0.5 text-[#A0A0A0] shrink-0">
+                      <span className="text-[10px] tracking-widest uppercase border border-[#E5E5E5] px-2 py-0.5 text-[#555555] shrink-0">
                         {inv.stage}
                       </span>
                     </div>
-                    <p className="text-[12px] text-[#A0A0A0] mt-1">{inv.location}</p>
+                    <p className="text-[12px] text-[#555555] mt-1">{inv.location}</p>
                     <p className="text-[13px] text-[#0A0A0A] mt-2 leading-snug">{inv.focus}</p>
                   </div>
                 </div>
@@ -147,15 +147,15 @@ export default function FinalOutput({
           </h3>
           <div className="border border-[#E5E5E5] divide-y divide-[#E5E5E5]">
             <div className="flex gap-4 p-5">
-              <span className="text-[10px] tracking-widest uppercase text-[#A0A0A0] w-16 shrink-0 pt-0.5">TAM</span>
+              <span className="text-[10px] tracking-widest uppercase text-[#555555] w-16 shrink-0 pt-0.5">TAM</span>
               <p className="text-[14px] text-[#0A0A0A]">{marketData.marketSize.tam}</p>
             </div>
             <div className="flex gap-4 p-5">
-              <span className="text-[10px] tracking-widest uppercase text-[#A0A0A0] w-16 shrink-0 pt-0.5">Trend</span>
+              <span className="text-[10px] tracking-widest uppercase text-[#555555] w-16 shrink-0 pt-0.5">Trend</span>
               <p className="text-[14px] text-[#0A0A0A]">{marketData.keyTrends[0]}</p>
             </div>
             <div className="flex gap-4 p-5">
-              <span className="text-[10px] tracking-widest uppercase text-[#A0A0A0] w-16 shrink-0 pt-0.5">Rival</span>
+              <span className="text-[10px] tracking-widest uppercase text-[#555555] w-16 shrink-0 pt-0.5">Rival</span>
               <p className="text-[14px] text-[#0A0A0A]">
                 {marketData.competitors[0]?.name} — {marketData.competitors[0]?.positioning}
               </p>
@@ -174,17 +174,17 @@ export default function FinalOutput({
           <div className="border border-[#E5E5E5] p-6">
             <div className="flex items-center gap-6 mb-6 pb-6 border-b border-[#E5E5E5]">
               <div>
-                <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-1">Pitch Score</p>
+                <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-1">Pitch Score</p>
                 <p
                   className="text-[48px] leading-none text-[#0A0A0A]"
                   style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
                 >
                   {stressReport.overallScore}
-                  <span className="text-[24px] text-[#A0A0A0]">/10</span>
+                  <span className="text-[24px] text-[#555555]">/10</span>
                 </p>
               </div>
               <div className="w-px h-16 bg-[#E5E5E5]" />
-              <p className="text-[13px] text-[#A0A0A0]">
+              <p className="text-[13px] text-[#555555]">
                 {stressReport.overallScore >= 8
                   ? "Strong pitch. Minor refinements needed."
                   : stressReport.overallScore >= 6
@@ -198,7 +198,7 @@ export default function FinalOutput({
             >
               &ldquo;{stressReport.suggestedNarrative}&rdquo;
             </p>
-            <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mt-3">
+            <p className="text-[11px] tracking-widest uppercase text-[#555555] mt-3">
               Suggested &ldquo;Why Us&rdquo; Narrative
             </p>
           </div>

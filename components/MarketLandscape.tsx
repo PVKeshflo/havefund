@@ -54,14 +54,14 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-3">Step 03</p>
+        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 03</p>
         <h2
           className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
           style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
         >
           Market Landscape
         </h2>
-        <p className="text-[15px] text-[#A0A0A0] leading-relaxed">
+        <p className="text-[15px] text-[#555555] leading-relaxed">
           TAM, trends, competition, and the forces shaping your market.
         </p>
       </div>
@@ -75,7 +75,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
           <div className="grid grid-cols-3 gap-px border border-[#E5E5E5]">
             {["TAM", "SAM", "SOM"].map((label) => (
               <div key={label} className="p-6 border-r border-[#E5E5E5] last:border-0">
-                <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-3">{label}</p>
+                <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">{label}</p>
                 <SkeletonLine width="70%" className="h-5" />
                 <SkeletonLine width="90%" className="h-3 mt-2" />
               </div>
@@ -107,7 +107,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
           {/* Market Size */}
           <div>
             <h3
-              className="text-[13px] tracking-widest uppercase text-[#A0A0A0] mb-6"
+              className="text-[13px] tracking-widest uppercase text-[#555555] mb-6"
             >
               Market Size
             </h3>
@@ -118,14 +118,14 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
                 { label: "SOM", value: data.marketSize.som },
               ].map(({ label, value }) => (
                 <div key={label} className="p-6 border-b sm:border-b-0 sm:border-r border-[#E5E5E5] last:border-0">
-                  <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-2">{label}</p>
+                  <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-2">{label}</p>
                   <p
                     className="text-[20px] leading-tight text-[#0A0A0A]"
                     style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
                   >
                     {value.split(" ")[0]}
                   </p>
-                  <p className="text-[12px] text-[#A0A0A0] mt-1 leading-snug">
+                  <p className="text-[12px] text-[#555555] mt-1 leading-snug">
                     {value.split(" ").slice(1).join(" ")}
                   </p>
                 </div>
@@ -166,15 +166,15 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
             </h3>
             <div className="border border-[#E5E5E5]">
               <div className="grid grid-cols-3 border-b border-[#E5E5E5] bg-[#F5F5F5]">
-                <div className="px-4 py-3 text-[10px] tracking-widest uppercase text-[#A0A0A0]">Name</div>
-                <div className="px-4 py-3 text-[10px] tracking-widest uppercase text-[#A0A0A0] border-l border-[#E5E5E5]">Positioning</div>
-                <div className="px-4 py-3 text-[10px] tracking-widest uppercase text-[#A0A0A0] border-l border-[#E5E5E5]">Funding</div>
+                <div className="px-4 py-3 text-[10px] tracking-widest uppercase text-[#555555]">Name</div>
+                <div className="px-4 py-3 text-[10px] tracking-widest uppercase text-[#555555] border-l border-[#E5E5E5]">Positioning</div>
+                <div className="px-4 py-3 text-[10px] tracking-widest uppercase text-[#555555] border-l border-[#E5E5E5]">Funding</div>
               </div>
               {data.competitors.map((comp, i) => (
                 <div key={i} className="grid grid-cols-3 border-b border-[#E5E5E5] last:border-0">
                   <div className="px-4 py-4 text-[13px] font-medium text-[#0A0A0A]">{comp.name}</div>
                   <div className="px-4 py-4 text-[13px] text-[#0A0A0A] border-l border-[#E5E5E5]">{comp.positioning}</div>
-                  <div className="px-4 py-4 text-[12px] text-[#A0A0A0] border-l border-[#E5E5E5]">{comp.funding}</div>
+                  <div className="px-4 py-4 text-[12px] text-[#555555] border-l border-[#E5E5E5]">{comp.funding}</div>
                 </div>
               ))}
             </div>
@@ -192,7 +192,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
               <ul className="space-y-3">
                 {data.tailwinds.map((t, i) => (
                   <li key={i} className="flex gap-3 text-[13px] text-[#0A0A0A] leading-relaxed">
-                    <span className="text-[#A0A0A0] shrink-0">↑</span>
+                    <span className="text-[#555555] shrink-0">↑</span>
                     {t}
                   </li>
                 ))}
@@ -208,7 +208,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
               <ul className="space-y-3">
                 {data.risks.map((r, i) => (
                   <li key={i} className="flex gap-3 text-[13px] text-[#0A0A0A] leading-relaxed">
-                    <span className="text-[#A0A0A0] shrink-0">↓</span>
+                    <span className="text-[#555555] shrink-0">↓</span>
                     {r}
                   </li>
                 ))}

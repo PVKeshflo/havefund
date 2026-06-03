@@ -21,7 +21,7 @@ export default function StepNav({ currentStep }: StepNavProps) {
             className="text-[13px] tracking-widest uppercase text-[#0A0A0A]"
             style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", letterSpacing: "0.12em" }}
           >
-            HaveFund
+            GoHaveFund
           </span>
           <ol className="flex items-center gap-1 sm:gap-3">
             {STEPS.map((step, i) => {
@@ -37,7 +37,7 @@ export default function StepNav({ currentStep }: StepNavProps) {
                         w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-medium shrink-0
                         ${isDone ? "bg-[#0A0A0A] text-white" : ""}
                         ${isCurrent ? "border border-[#0A0A0A] text-[#0A0A0A]" : ""}
-                        ${isFuture ? "border border-[#E5E5E5] text-[#A0A0A0]" : ""}
+                        ${isFuture ? "border border-[#E5E5E5] text-[#555555]" : ""}
                       `}
                     >
                       {isDone ? (
@@ -53,7 +53,7 @@ export default function StepNav({ currentStep }: StepNavProps) {
                         hidden sm:block text-[11px] tracking-wide uppercase
                         ${isCurrent ? "text-[#0A0A0A] font-medium" : ""}
                         ${isDone ? "text-[#0A0A0A]" : ""}
-                        ${isFuture ? "text-[#A0A0A0]" : ""}
+                        ${isFuture ? "text-[#555555]" : ""}
                       `}
                     >
                       {step.label}

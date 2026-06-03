@@ -11,7 +11,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "HaveFund — Fundraising Intelligence for Founders",
+  title: "GoHaveFund — Fundraising Intelligence for Founders",
   description:
     "Craft investor communications, discover VCs, research markets, and stress-test your value proposition.",
 };

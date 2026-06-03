@@ -85,14 +85,14 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#A0A0A0] mb-3">Step 02</p>
+        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 02</p>
         <h2
           className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
           style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
         >
           VC Discovery
         </h2>
-        <p className="text-[15px] text-[#A0A0A0] leading-relaxed">
+        <p className="text-[15px] text-[#555555] leading-relaxed">
           Investors matched to your stage, industry, and geography — with personalised outreach drafts.
         </p>
       </div>
@@ -123,7 +123,7 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
 
       {!loading && !error && investors.length === 0 && (
         <div className="border border-[#E5E5E5] px-6 py-8 text-center">
-          <p className="text-[14px] text-[#A0A0A0]">No investors found for these criteria.</p>
+          <p className="text-[14px] text-[#555555]">No investors found for these criteria.</p>
           <button onClick={fetchInvestors} className="mt-4 text-[11px] tracking-widest uppercase underline underline-offset-2">
             Try Again
           </button>
@@ -144,10 +144,10 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                       {inv.name}
                     </h3>
                     <div className="flex flex-wrap gap-2 items-center">
-                      <span className="text-[10px] tracking-widest uppercase border border-[#E5E5E5] px-2 py-0.5 text-[#A0A0A0]">
+                      <span className="text-[10px] tracking-widest uppercase border border-[#E5E5E5] px-2 py-0.5 text-[#555555]">
                         {inv.stage}
                       </span>
-                      <span className="text-[12px] text-[#A0A0A0]">{inv.location}</span>
+                      <span className="text-[12px] text-[#555555]">{inv.location}</span>
                     </div>
                   </div>
                   {inv.website && (
@@ -155,7 +155,7 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                       href={inv.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] tracking-widest uppercase text-[#A0A0A0] hover:text-[#0A0A0A] transition-colors shrink-0"
+                      className="text-[11px] tracking-widest uppercase text-[#555555] hover:text-[#0A0A0A] transition-colors shrink-0"
                     >
                       ↗
                     </a>
@@ -167,14 +167,14 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                 {inv.notablePortfolio?.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-3">
                     {inv.notablePortfolio.map((co) => (
-                      <span key={co} className="text-[11px] text-[#A0A0A0] bg-[#F5F5F5] px-2 py-0.5">
+                      <span key={co} className="text-[11px] text-[#555555] bg-[#F5F5F5] px-2 py-0.5">
                         {co}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <p className="text-[12px] text-[#A0A0A0] italic mb-4">{inv.contactHint}</p>
+                <p className="text-[12px] text-[#555555] italic mb-4">{inv.contactHint}</p>
 
                 <button
                   onClick={() => draftOutreach(inv)}
@@ -192,7 +192,7 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
               {outreachMap[inv.name] && (
                 <div className="border-t border-[#E5E5E5] bg-[#F5F5F5] p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] tracking-widest uppercase text-[#A0A0A0]">
+                    <span className="text-[11px] tracking-widest uppercase text-[#555555]">
                       Cold Email Draft
                     </span>
                     <button

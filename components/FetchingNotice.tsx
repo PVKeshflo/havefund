@@ -15,7 +15,7 @@ export default function FetchingNotice({ title, detail }: FetchingNoticeProps) {
       </div>
       <div>
         <p className="text-[13px] font-medium text-[#0A0A0A] leading-snug">{title}</p>
-        <p className="text-[12px] text-[#A0A0A0] mt-0.5 leading-snug">{detail}</p>
+        <p className="text-[12px] text-[#555555] mt-0.5 leading-snug">{detail}</p>
       </div>
     </div>
   );
