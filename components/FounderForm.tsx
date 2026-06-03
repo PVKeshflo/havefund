@@ -18,6 +18,8 @@ export interface FounderBrief {
   successMetric: string;
   whyNotDoneBefore: string;
   defensibility: string;
+  financialsYTD: string;
+  milestonesAchieved: string;
 }
 
 interface FounderFormProps {
@@ -119,6 +121,8 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     successMetric: "",
     whyNotDoneBefore: "",
     defensibility: "",
+    financialsYTD: "",
+    milestonesAchieved: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -327,6 +331,31 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
               value={form.defensibility}
               onChange={set("defensibility") as (e: React.ChangeEvent<HTMLInputElement>) => void}
               required
+            />
+          </div>
+        </BrickBlock>
+
+        {/* Block 05 — Traction */}
+        <BrickBlock accentColor="red" label="Block 05 — Traction">
+          <div>
+            <label className={labelClass}>Financials Year to Date (MRR / Churn / Runway)</label>
+            <LimitedInput
+              placeholder="e.g. $18k MRR, 3% churn, 14 months runway"
+              value={form.financialsYTD}
+              onChange={set("financialsYTD") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+              limit={80}
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Milestones Achieved</label>
+            <LimitedInput
+              placeholder="e.g. 120 paying customers, Series A term sheet signed"
+              value={form.milestonesAchieved}
+              onChange={set("milestonesAchieved") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+              limit={80}
             />
           </div>
         </BrickBlock>

@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
       successMetric,
       whyNotDoneBefore,
       defensibility,
+      financialsYTD,
+      milestonesAchieved,
     } = body;
 
     const prompt = `You are a world-class startup pitch writer known for emails that actually get replies. Given the following founder brief, do two things:
@@ -62,6 +64,8 @@ FOUNDER BRIEF:
 - Success metric: ${successMetric}
 - Why not done before: ${whyNotDoneBefore}
 - Defensibility: ${defensibility}
+- Financials YTD (MRR/Churn/Runway): ${financialsYTD}
+- Milestones achieved: ${milestonesAchieved}
 
 Return ONLY valid JSON with this exact structure:
 {
