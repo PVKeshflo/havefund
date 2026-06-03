@@ -10,9 +10,10 @@ export interface FounderBrief {
   country: string;
   stage: string;
   amountRaising: string;
-  problem: string;
-  solution: string;
-  traction: string;
+  problemStatement: string;
+  problemFrequency: string;
+  problemImpact: string;
+  problemSufferers: string;
 }
 
 interface FounderFormProps {
@@ -21,47 +22,45 @@ interface FounderFormProps {
 
 const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Climate", "EdTech", "Other"];
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
-const CHAR_LIMIT = 250;
+const BLOCK3_LIMIT = 70;
 
 const inputClass =
   "w-full border-2 border-[#0A0A0A] px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#AAAAAA] focus:outline-none focus:border-[#DC2626] transition-all bg-white shadow-[3px_3px_0px_0px_#0A0A0A] focus:shadow-[3px_3px_0px_0px_#DC2626]";
 
 const labelClass = "block text-[10px] tracking-widest uppercase font-black text-[#0A0A0A] mb-2";
 
-interface LimitedTextareaProps {
+// Single-line input with 70-char hard cap + progress bar
+interface LimitedInputProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  rows: number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   required?: boolean;
 }
 
-function LimitedTextarea({ value, onChange, rows, placeholder, required }: LimitedTextareaProps) {
+function LimitedInput({ value, onChange, placeholder, required }: LimitedInputProps) {
   const count = value.length;
-  const isOver = count > CHAR_LIMIT;
-  const isNear = count > CHAR_LIMIT * 0.85;
+  const isNear = count >= Math.floor(BLOCK3_LIMIT * 0.85);
+  const isFull = count === BLOCK3_LIMIT;
   return (
     <div>
-      <textarea
-        className={`${inputClass} resize-none ${isOver ? "!border-[#DC2626] !shadow-[3px_3px_0px_0px_#DC2626]" : ""}`}
-        rows={rows}
+      <input
+        type="text"
+        className={`${inputClass} ${isFull ? "!border-[#F59E0B] !shadow-[3px_3px_0px_0px_#F59E0B]" : ""}`}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         required={required}
+        maxLength={BLOCK3_LIMIT}
       />
       <div className="flex items-center justify-end gap-2 mt-1.5">
-        {/* Mini progress bar */}
         <div className="flex-1 h-1 bg-[#E5E5E5] border border-[#0A0A0A] overflow-hidden">
           <div
-            className={`h-full transition-all ${isOver ? "bg-[#DC2626]" : isNear ? "bg-[#F59E0B]" : "bg-[#0A0A0A]"}`}
-            style={{ width: `${Math.min((count / CHAR_LIMIT) * 100, 100)}%` }}
+            className={`h-full transition-all ${isFull ? "bg-[#F59E0B]" : isNear ? "bg-[#F59E0B]" : "bg-[#DC2626]"}`}
+            style={{ width: `${(count / BLOCK3_LIMIT) * 100}%` }}
           />
         </div>
-        <p className={`text-[10px] font-black tracking-wider shrink-0 ${
-          isOver ? "text-[#DC2626]" : isNear ? "text-[#F59E0B]" : "text-[#555555]"
-        }`}>
-          {count} / {CHAR_LIMIT}{isOver ? " ✕" : ""}
+        <p className={`text-[10px] font-black tracking-wider shrink-0 ${isNear ? "text-[#F59E0B]" : "text-[#555555]"}`}>
+          {count} / {BLOCK3_LIMIT}
         </p>
       </div>
     </div>
@@ -81,9 +80,7 @@ function BrickBlock({
   const bg = accentColor === "red" ? "bg-[#DC2626]" : "bg-[#0A0A0A]";
   return (
     <div className="border-2 border-[#0A0A0A] shadow-[5px_5px_0px_0px_#0A0A0A] bg-white">
-      {/* Brick header strip with studs */}
       <div className={`${bg} px-4 py-2.5 border-b-2 border-[#0A0A0A] flex items-center gap-3`}>
-        {/* Lego studs */}
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
             <div
@@ -109,28 +106,23 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     country: "",
     stage: "Seed",
     amountRaising: "",
-    problem: "",
-    solution: "",
-    traction: "",
+    problemStatement: "",
+    problemFrequency: "",
+    problemImpact: "",
+    problemSufferers: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refinedEmail, setRefinedEmail] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const isWordLimitExceeded =
-    form.problem.length > CHAR_LIMIT ||
-    form.solution.length > CHAR_LIMIT ||
-    form.traction.length > CHAR_LIMIT;
-
   function set(field: keyof FounderBrief) {
-    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (isWordLimitExceeded) return;
     setError("");
     setLoading(true);
 
@@ -244,55 +236,48 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
           </div>
         </BrickBlock>
 
-        {/* Block 03 — Pitch */}
-        <BrickBlock accentColor="red" label="Block 03 — Pitch">
+        {/* Block 03 — Problem */}
+        <BrickBlock accentColor="red" label="Block 03 — Problem">
           <div>
-            <label className={labelClass}>
-              Problem Being Solved
-              <span className="ml-2 normal-case font-normal text-[#555555]">(max {CHAR_LIMIT} chars)</span>
-            </label>
-            <LimitedTextarea
-              rows={3}
-              placeholder="Describe the specific pain point your startup addresses..."
-              value={form.problem}
-              onChange={set("problem") as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
+            <label className={labelClass}>What problem are you solving?</label>
+            <LimitedInput
+              placeholder="e.g. SMEs can't access affordable trade finance"
+              value={form.problemStatement}
+              onChange={set("problemStatement") as (e: React.ChangeEvent<HTMLInputElement>) => void}
               required
             />
           </div>
 
           <div>
-            <label className={labelClass}>
-              Solution &amp; Product
-              <span className="ml-2 normal-case font-normal text-[#555555]">(max {CHAR_LIMIT} chars)</span>
-            </label>
-            <LimitedTextarea
-              rows={3}
-              placeholder="How does your product solve the problem? What's the core mechanism?"
-              value={form.solution}
-              onChange={set("solution") as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
+            <label className={labelClass}>How often does this problem happen?</label>
+            <LimitedInput
+              placeholder="e.g. Every time an invoice is issued — daily"
+              value={form.problemFrequency}
+              onChange={set("problemFrequency") as (e: React.ChangeEvent<HTMLInputElement>) => void}
               required
             />
           </div>
 
           <div>
-            <label className={labelClass}>
-              Traction &amp; Key Metrics
-              <span className="ml-2 normal-case font-normal text-[#555555]">(max {CHAR_LIMIT} chars)</span>
-            </label>
-            <LimitedTextarea
-              rows={2}
-              placeholder="ARR, users, growth rate, notable customers, partnerships..."
-              value={form.traction}
-              onChange={set("traction") as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
+            <label className={labelClass}>What measurable impact occurs when it happens?</label>
+            <LimitedInput
+              placeholder="e.g. 30% cash flow gap, avg. $50k lost per quarter"
+              value={form.problemImpact}
+              onChange={set("problemImpact") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Who pays or suffers when this happens?</label>
+            <LimitedInput
+              placeholder="e.g. SME owners, their suppliers, and employees"
+              value={form.problemSufferers}
+              onChange={set("problemSufferers") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+              required
             />
           </div>
         </BrickBlock>
-
-        {isWordLimitExceeded && (
-          <div className="border-2 border-[#DC2626] shadow-[3px_3px_0px_0px_#DC2626] px-4 py-3 text-[12px] text-[#DC2626] font-black bg-white tracking-wide uppercase">
-            ✕ One or more fields exceed the 250-character limit. Shorten them to continue.
-          </div>
-        )}
 
         {error && (
           <div className="border-2 border-[#0A0A0A] shadow-[3px_3px_0px_0px_#0A0A0A] px-4 py-3 text-[13px] text-[#0A0A0A] flex items-center justify-between bg-white">
@@ -309,7 +294,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         {/* Lego-style press button */}
         <button
           type="submit"
-          disabled={loading || isWordLimitExceeded}
+          disabled={loading}
           className="w-full bg-[#DC2626] text-white py-4 text-[13px] font-black tracking-widest uppercase border-2 border-[#0A0A0A] shadow-[5px_5px_0px_0px_#0A0A0A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0px_0px_#0A0A0A] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? "Analysing…" : "Analyse & Continue →"}

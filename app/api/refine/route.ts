@@ -13,14 +13,15 @@ export async function POST(req: NextRequest) {
       country,
       stage,
       amountRaising,
-      problem,
-      solution,
-      traction,
+      problemStatement,
+      problemFrequency,
+      problemImpact,
+      problemSufferers,
     } = body;
 
     const prompt = `You are an expert startup pitch advisor. Given the following founder brief, do two things:
 
-1. Write a sharp, compelling investor email/post from scratch. Keep it concise, specific, and investor-ready. Lead with traction, be clear about the ask. Under 200 words.
+1. Write a sharp, compelling investor email/post from scratch. Keep it concise, specific, and investor-ready. Lead with the problem urgency and impact, be clear about the ask. Under 200 words.
 
 2. Extract a structured startup summary for downstream analysis.
 
@@ -31,9 +32,10 @@ FOUNDER BRIEF:
 - Country: ${country}
 - Stage: ${stage}
 - Raising: ${amountRaising}
-- Problem: ${problem}
-- Solution: ${solution}
-- Traction: ${traction}
+- Problem: ${problemStatement}
+- How often it happens: ${problemFrequency}
+- Measurable impact: ${problemImpact}
+- Who suffers / pays: ${problemSufferers}
 
 Return ONLY valid JSON with this exact structure:
 {
