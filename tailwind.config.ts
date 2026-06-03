@@ -9,15 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["Instrument Serif", "Georgia", "serif"],
+        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        outfit: ["var(--font-outfit)", "sans-serif"],
         mono: ["Geist Mono", "monospace"],
       },
       colors: {
         ink: "#0A0A0A",
         paper: "#FFFFFF",
         border: "#E5E5E5",
-        muted: "#A0A0A0",
+        muted: "#555555",
         hover: "#F5F5F5",
+        accent: "#DC2626",
       },
     },
   },

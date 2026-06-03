@@ -85,10 +85,10 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 02</p>
+        <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 02</p>
         <h2
-          className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
-          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+          className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4"
+          
         >
           VC Discovery
         </h2>
@@ -139,7 +139,7 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                   <div>
                     <h3
                       className="text-[22px] leading-tight text-[#0A0A0A] mb-1"
-                      style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                      
                     >
                       {inv.name}
                     </h3>

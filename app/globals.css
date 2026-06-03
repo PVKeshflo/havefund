@@ -9,7 +9,7 @@
 body {
   color: #0A0A0A;
   background: #FFFFFF;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-outfit), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -19,15 +19,16 @@ body {
 
 input, textarea, select {
   outline: none;
+  font-family: inherit;
 }
 
 input:focus, textarea:focus, select:focus {
-  outline: 1px solid #0A0A0A;
+  outline: 2px solid #DC2626;
   outline-offset: 0;
 }
 
 ::selection {
-  background: #0A0A0A;
+  background: #DC2626;
   color: #FFFFFF;
 }
 

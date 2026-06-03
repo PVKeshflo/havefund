@@ -54,10 +54,10 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 03</p>
+        <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 03</p>
         <h2
-          className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
-          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+          className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4"
+          
         >
           Market Landscape
         </h2>
@@ -121,7 +121,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
                   <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-2">{label}</p>
                   <p
                     className="text-[20px] leading-tight text-[#0A0A0A]"
-                    style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                    
                   >
                     {value.split(" ")[0]}
                   </p>
@@ -136,8 +136,8 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
           {/* Key Trends */}
           <div>
             <h3
-              className="text-[28px] text-[#0A0A0A] mb-6"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              className="text-[28px] font-black text-[#0A0A0A] mb-6"
+              
             >
               Key Trends
             </h3>
@@ -146,7 +146,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
                 <li key={i} className="flex gap-6 py-4 border-b border-[#E5E5E5] last:border-0">
                   <span
                     className="text-[32px] leading-none text-[#E5E5E5] shrink-0 w-8"
-                    style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                    
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -159,8 +159,8 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
           {/* Competitors */}
           <div>
             <h3
-              className="text-[28px] text-[#0A0A0A] mb-6"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              className="text-[28px] font-black text-[#0A0A0A] mb-6"
+              
             >
               Competitive Landscape
             </h3>
@@ -184,8 +184,8 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
               <h3
-                className="text-[22px] text-[#0A0A0A] mb-5"
-                style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                className="text-[22px] font-bold text-[#0A0A0A] mb-5"
+                
               >
                 Tailwinds
               </h3>
@@ -200,8 +200,8 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
             </div>
             <div>
               <h3
-                className="text-[22px] text-[#0A0A0A] mb-5"
-                style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                className="text-[22px] font-bold text-[#0A0A0A] mb-5"
+                
               >
                 Risks
               </h3>

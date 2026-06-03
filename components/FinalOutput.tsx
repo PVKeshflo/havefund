@@ -59,10 +59,10 @@ export default function FinalOutput({
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 05</p>
+        <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 05</p>
         <h2
-          className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
-          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+          className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4"
+          
         >
           Final Output
         </h2>
@@ -77,7 +77,7 @@ export default function FinalOutput({
           <div className="flex items-center justify-between mb-6">
             <h3
               className="text-[28px] text-[#0A0A0A]"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              
             >
               Investor Communication
             </h3>
@@ -99,8 +99,8 @@ export default function FinalOutput({
         {topThreeVCs.length > 0 && (
           <div>
             <h3
-              className="text-[28px] text-[#0A0A0A] mb-6"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              className="text-[28px] font-black text-[#0A0A0A] mb-6"
+              
             >
               Recommended VCs
             </h3>
@@ -112,7 +112,7 @@ export default function FinalOutput({
                 >
                   <span
                     className="text-[24px] text-[#E5E5E5] shrink-0"
-                    style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                    
                   >
                     0{i + 1}
                   </span>
@@ -120,7 +120,7 @@ export default function FinalOutput({
                     <div className="flex items-start justify-between gap-3">
                       <p
                         className="text-[18px] text-[#0A0A0A]"
-                        style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                        
                       >
                         {inv.name}
                       </p>
@@ -140,8 +140,8 @@ export default function FinalOutput({
         {/* Market Snapshot */}
         <div>
           <h3
-            className="text-[28px] text-[#0A0A0A] mb-6"
-            style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            className="text-[28px] font-black text-[#0A0A0A] mb-6"
+            
           >
             Market Snapshot
           </h3>
@@ -166,8 +166,8 @@ export default function FinalOutput({
         {/* Stress Test Summary */}
         <div>
           <h3
-            className="text-[28px] text-[#0A0A0A] mb-6"
-            style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+            className="text-[28px] font-black text-[#0A0A0A] mb-6"
+            
           >
             Stress Test
           </h3>
@@ -177,7 +177,7 @@ export default function FinalOutput({
                 <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-1">Pitch Score</p>
                 <p
                   className="text-[48px] leading-none text-[#0A0A0A]"
-                  style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                  
                 >
                   {stressReport.overallScore}
                   <span className="text-[24px] text-[#555555]">/10</span>
@@ -194,7 +194,7 @@ export default function FinalOutput({
             </div>
             <p
               className="text-[20px] leading-relaxed text-[#0A0A0A] italic"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              
             >
               &ldquo;{stressReport.suggestedNarrative}&rdquo;
             </p>

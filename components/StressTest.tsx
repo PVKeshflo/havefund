@@ -111,10 +111,10 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
   return (
     <section className="max-w-2xl mx-auto px-6 py-16 border-t border-[#E5E5E5]">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 04</p>
+        <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 04</p>
         <h2
-          className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
-          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+          className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4"
+          
         >
           Stress Test
         </h2>
@@ -205,7 +205,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
               ) : (
                 <p
                   className="text-[14px] leading-relaxed text-[#0A0A0A] italic"
-                  style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                  
                 >
                   {currentChallenge}
                 </p>
@@ -265,7 +265,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
             <div className="flex items-center justify-between mb-4">
               <h3
                 className="text-[24px] text-[#0A0A0A]"
-                style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                
               >
                 Stress Test Report
               </h3>
@@ -273,7 +273,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
                 <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-0.5">Overall Score</p>
                 <p
                   className="text-[36px] leading-none text-[#0A0A0A]"
-                  style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                  
                 >
                   {report.overallScore}<span className="text-[20px] text-[#555555]">/10</span>
                 </p>
@@ -281,7 +281,7 @@ export default function StressTest({ startupSummary, onComplete }: StressTestPro
             </div>
             <p
               className="text-[20px] leading-relaxed text-[#0A0A0A] italic"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+              
             >
               &ldquo;{report.suggestedNarrative}&rdquo;
             </p>

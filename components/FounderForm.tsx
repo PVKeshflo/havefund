@@ -24,9 +24,9 @@ const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Cl
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
 
 const inputClass =
-  "w-full border border-[#E5E5E5] px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#555555] focus:outline-none focus:border-[#0A0A0A] transition-colors bg-white";
+  "w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#999999] focus:outline-none focus:border-[#DC2626] transition-colors bg-white";
 
-const labelClass = "block text-[11px] tracking-widest uppercase text-[#555555] mb-2";
+const labelClass = "block text-[11px] tracking-widest uppercase font-bold text-[#555555] mb-2";
 
 export default function FounderForm({ onComplete }: FounderFormProps) {
   const [form, setForm] = useState<FounderBrief>({
@@ -83,14 +83,11 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
   return (
     <section className="max-w-2xl mx-auto px-6 py-16">
       <div className="mb-12">
-        <p className="text-[11px] tracking-widest uppercase text-[#555555] mb-3">Step 01</p>
-        <h1
-          className="text-[42px] leading-[1.1] text-[#0A0A0A] mb-4"
-          style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
-        >
+        <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 01</p>
+        <h1 className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4">
           Founder Brief
         </h1>
-        <p className="text-[15px] text-[#555555] leading-relaxed">
+        <p className="text-[16px] text-[#555555] leading-relaxed">
           Tell us about your startup. We&apos;ll refine your investor communication and unlock the full analysis suite.
         </p>
       </div>
@@ -122,26 +119,14 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
             <label className={labelClass}>Industry</label>
-            <select
-              className={inputClass}
-              value={form.industry}
-              onChange={set("industry")}
-            >
-              {INDUSTRIES.map((i) => (
-                <option key={i} value={i}>{i}</option>
-              ))}
+            <select className={inputClass} value={form.industry} onChange={set("industry")}>
+              {INDUSTRIES.map((i) => <option key={i} value={i}>{i}</option>)}
             </select>
           </div>
           <div>
             <label className={labelClass}>Stage</label>
-            <select
-              className={inputClass}
-              value={form.stage}
-              onChange={set("stage")}
-            >
-              {STAGES.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
+            <select className={inputClass} value={form.stage} onChange={set("stage")}>
+              {STAGES.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
           <div>
@@ -215,12 +200,9 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         </div>
 
         {error && (
-          <div className="border border-[#E5E5E5] px-4 py-3 text-[13px] text-[#0A0A0A] flex items-center justify-between">
+          <div className="border border-[#E5E5E5] rounded-lg px-4 py-3 text-[13px] text-[#0A0A0A] flex items-center justify-between">
             <span>{error}</span>
-            <button
-              type="submit"
-              className="text-[11px] tracking-widest uppercase underline underline-offset-2"
-            >
+            <button type="submit" className="text-[11px] tracking-widest uppercase underline underline-offset-2 text-[#DC2626]">
               Retry
             </button>
           </div>
@@ -229,7 +211,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#0A0A0A] text-white py-4 text-[13px] tracking-widest uppercase hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full bg-[#DC2626] text-white rounded-lg py-4 text-[13px] font-bold tracking-widest uppercase hover:bg-[#b91c1c] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? "Analysing..." : "Analyse & Continue →"}
         </button>
@@ -245,20 +227,17 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
       {refinedEmail && (
         <div className="mt-12 border-t border-[#E5E5E5] pt-12">
           <div className="flex items-center justify-between mb-6">
-            <h2
-              className="text-[24px] text-[#0A0A0A]"
-              style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
-            >
+            <h2 className="text-[26px] font-black text-[#0A0A0A]">
               Refined Investor Communication
             </h2>
             <button
               onClick={copyEmail}
-              className="text-[11px] tracking-widest uppercase border border-[#E5E5E5] px-4 py-2 hover:bg-[#F5F5F5] transition-colors"
+              className="text-[11px] tracking-widest uppercase font-bold border border-[#E5E5E5] rounded-lg px-4 py-2 hover:bg-[#F5F5F5] transition-colors"
             >
               {copied ? "Copied ✓" : "Copy"}
             </button>
           </div>
-          <div className="border border-[#E5E5E5] p-6">
+          <div className="border border-[#E5E5E5] rounded-lg p-6">
             <pre className="text-[14px] leading-relaxed text-[#0A0A0A] whitespace-pre-wrap font-sans">
               {refinedEmail}
             </pre>

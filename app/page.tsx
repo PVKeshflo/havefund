@@ -172,10 +172,8 @@ export default function Home() {
 
       <footer className="border-t border-[#E5E5E5] py-8 mt-16">
         <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
-          <span
-            className="text-[12px] tracking-widest uppercase text-[#555555]"
-          >
-            GoHaveFund
+          <span className="text-[13px] font-bold text-[#0A0A0A]">
+            GoHave<span className="text-[#DC2626]">Fund</span>
           </span>
           <span className="text-[12px] text-[#555555]">
             Powered by Claude

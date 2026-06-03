@@ -17,11 +17,8 @@ export default function StepNav({ currentStep }: StepNavProps) {
     <nav className="border-b border-[#E5E5E5] bg-white sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <span
-            className="text-[13px] tracking-widest uppercase text-[#0A0A0A]"
-            style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif", letterSpacing: "0.12em" }}
-          >
-            GoHaveFund
+          <span className="text-[15px] font-bold tracking-tight text-[#0A0A0A]">
+            GoHave<span className="text-[#DC2626]">Fund</span>
           </span>
           <ol className="flex items-center gap-1 sm:gap-3">
             {STEPS.map((step, i) => {
@@ -34,9 +31,9 @@ export default function StepNav({ currentStep }: StepNavProps) {
                   <div className="flex items-center gap-1.5">
                     <span
                       className={`
-                        w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-medium shrink-0
-                        ${isDone ? "bg-[#0A0A0A] text-white" : ""}
-                        ${isCurrent ? "border border-[#0A0A0A] text-[#0A0A0A]" : ""}
+                        w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0
+                        ${isDone ? "bg-[#DC2626] text-white" : ""}
+                        ${isCurrent ? "border-2 border-[#DC2626] text-[#DC2626]" : ""}
                         ${isFuture ? "border border-[#E5E5E5] text-[#555555]" : ""}
                       `}
                     >
@@ -50,8 +47,8 @@ export default function StepNav({ currentStep }: StepNavProps) {
                     </span>
                     <span
                       className={`
-                        hidden sm:block text-[11px] tracking-wide uppercase
-                        ${isCurrent ? "text-[#0A0A0A] font-medium" : ""}
+                        hidden sm:block text-[11px] tracking-wide uppercase font-semibold
+                        ${isCurrent ? "text-[#DC2626]" : ""}
                         ${isDone ? "text-[#0A0A0A]" : ""}
                         ${isFuture ? "text-[#555555]" : ""}
                       `}
