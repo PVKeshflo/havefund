@@ -13,7 +13,6 @@ export interface FounderBrief {
   problem: string;
   solution: string;
   traction: string;
-  investorDraft: string;
 }
 
 interface FounderFormProps {
@@ -22,11 +21,47 @@ interface FounderFormProps {
 
 const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Climate", "EdTech", "Other"];
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
+const WORD_LIMIT = 200;
 
 const inputClass =
   "w-full border border-[#E5E5E5] rounded-lg px-4 py-3 text-[14px] text-[#0A0A0A] placeholder-[#999999] focus:outline-none focus:border-[#DC2626] transition-colors bg-white";
 
 const labelClass = "block text-[11px] tracking-widest uppercase font-bold text-[#555555] mb-2";
+
+function wordCount(text: string): number {
+  return text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+}
+
+interface LimitedTextareaProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  rows: number;
+  placeholder: string;
+  required?: boolean;
+}
+
+function LimitedTextarea({ value, onChange, rows, placeholder, required }: LimitedTextareaProps) {
+  const count = wordCount(value);
+  const isOver = count > WORD_LIMIT;
+  const isNear = count > WORD_LIMIT * 0.85;
+  return (
+    <div>
+      <textarea
+        className={`${inputClass} ${isOver ? "!border-[#DC2626]" : ""}`}
+        rows={rows}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
+      <p className={`text-[11px] mt-1.5 text-right font-medium ${
+        isOver ? "text-[#DC2626]" : isNear ? "text-[#F59E0B]" : "text-[#555555]"
+      }`}>
+        {count} / {WORD_LIMIT} words{isOver ? " — over limit" : ""}
+      </p>
+    </div>
+  );
+}
 
 export default function FounderForm({ onComplete }: FounderFormProps) {
   const [form, setForm] = useState<FounderBrief>({
@@ -39,12 +74,16 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     problem: "",
     solution: "",
     traction: "",
-    investorDraft: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refinedEmail, setRefinedEmail] = useState("");
   const [copied, setCopied] = useState(false);
+
+  const isWordLimitExceeded =
+    wordCount(form.problem) > WORD_LIMIT ||
+    wordCount(form.solution) > WORD_LIMIT ||
+    wordCount(form.traction) > WORD_LIMIT;
 
   function set(field: keyof FounderBrief) {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -53,6 +92,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (isWordLimitExceeded) return;
     setError("");
     setLoading(true);
 
@@ -85,10 +125,10 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
       <div className="mb-12">
         <p className="text-[11px] tracking-widest uppercase font-bold text-[#DC2626] mb-3">Step 01</p>
         <h1 className="text-[46px] font-black leading-[1.05] text-[#0A0A0A] mb-4">
-          Founder Brief
+          Tell Us More
         </h1>
         <p className="text-[16px] text-[#555555] leading-relaxed">
-          Tell us about your startup. We&apos;ll refine your investor communication and unlock the full analysis suite.
+          Tell us about your startup. We&apos;ll craft your investor communication and unlock the full analysis suite.
         </p>
       </div>
 
@@ -153,51 +193,51 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         </div>
 
         <div>
-          <label className={labelClass}>Problem Being Solved</label>
-          <textarea
-            className={inputClass}
+          <label className={labelClass}>
+            Problem Being Solved
+            <span className="ml-2 text-[#555555] normal-case font-normal">(max {WORD_LIMIT} words)</span>
+          </label>
+          <LimitedTextarea
             rows={3}
             placeholder="Describe the specific pain point your startup addresses..."
             value={form.problem}
-            onChange={set("problem")}
+            onChange={set("problem") as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
             required
           />
         </div>
 
         <div>
-          <label className={labelClass}>Solution &amp; Product</label>
-          <textarea
-            className={inputClass}
+          <label className={labelClass}>
+            Solution &amp; Product
+            <span className="ml-2 text-[#555555] normal-case font-normal">(max {WORD_LIMIT} words)</span>
+          </label>
+          <LimitedTextarea
             rows={3}
             placeholder="How does your product solve the problem? What's the core mechanism?"
             value={form.solution}
-            onChange={set("solution")}
+            onChange={set("solution") as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
             required
           />
         </div>
 
         <div>
-          <label className={labelClass}>Traction &amp; Key Metrics</label>
-          <textarea
-            className={inputClass}
+          <label className={labelClass}>
+            Traction &amp; Key Metrics
+            <span className="ml-2 text-[#555555] normal-case font-normal">(max {WORD_LIMIT} words)</span>
+          </label>
+          <LimitedTextarea
             rows={2}
             placeholder="ARR, users, growth rate, notable customers, partnerships..."
             value={form.traction}
-            onChange={set("traction")}
+            onChange={set("traction") as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
           />
         </div>
 
-        <div>
-          <label className={labelClass}>Current Investor Email / Post Draft</label>
-          <textarea
-            className={inputClass}
-            rows={5}
-            placeholder="Paste your current draft here — we'll sharpen it into something investors will actually respond to."
-            value={form.investorDraft}
-            onChange={set("investorDraft")}
-            required
-          />
-        </div>
+        {isWordLimitExceeded && (
+          <div className="border border-[#DC2626] rounded-lg px-4 py-3 text-[13px] text-[#DC2626] font-medium">
+            One or more fields exceed the 200-word limit. Please shorten them before continuing.
+          </div>
+        )}
 
         {error && (
           <div className="border border-[#E5E5E5] rounded-lg px-4 py-3 text-[13px] text-[#0A0A0A] flex items-center justify-between">
@@ -210,7 +250,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || isWordLimitExceeded}
           className="w-full bg-[#DC2626] text-white rounded-lg py-4 text-[13px] font-bold tracking-widest uppercase hover:bg-[#b91c1c] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {loading ? "Analysing..." : "Analyse & Continue →"}
@@ -218,8 +258,8 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
 
         {loading && (
           <FetchingNotice
-            title="Refining your investor communication…"
-            detail="We're sharpening your pitch and extracting your startup profile — this takes 10–20 seconds."
+            title="Crafting your investor communication…"
+            detail="We're building your pitch and extracting your startup profile — this takes 10–20 seconds."
           />
         )}
       </form>
@@ -228,7 +268,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         <div className="mt-12 border-t border-[#E5E5E5] pt-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-[26px] font-black text-[#0A0A0A]">
-              Refined Investor Communication
+              Investor Communication
             </h2>
             <button
               onClick={copyEmail}

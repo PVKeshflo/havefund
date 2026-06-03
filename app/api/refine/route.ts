@@ -16,12 +16,11 @@ export async function POST(req: NextRequest) {
       problem,
       solution,
       traction,
-      investorDraft,
     } = body;
 
     const prompt = `You are an expert startup pitch advisor. Given the following founder brief, do two things:
 
-1. Rewrite the investor email/post into a sharper, more compelling version. Keep it concise, specific, and investor-ready. Lead with traction, be clear about the ask.
+1. Write a sharp, compelling investor email/post from scratch. Keep it concise, specific, and investor-ready. Lead with traction, be clear about the ask. Under 200 words.
 
 2. Extract a structured startup summary for downstream analysis.
 
@@ -36,12 +35,9 @@ FOUNDER BRIEF:
 - Solution: ${solution}
 - Traction: ${traction}
 
-CURRENT DRAFT:
-${investorDraft}
-
 Return ONLY valid JSON with this exact structure:
 {
-  "refinedEmail": "the improved investor email/post as a string",
+  "refinedEmail": "the investor email/post as a string",
   "startupSummary": {
     "name": "${startupName}",
     "oneLiner": "concise one-liner",
@@ -70,6 +66,6 @@ Return ONLY valid JSON with this exact structure:
     return NextResponse.json(data);
   } catch (err) {
     console.error("/api/refine error:", err);
-    return NextResponse.json({ error: "Failed to refine pitch. Please try again." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to craft pitch. Please try again." }, { status: 500 });
   }
 }
