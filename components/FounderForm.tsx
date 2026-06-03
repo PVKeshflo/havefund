@@ -174,7 +174,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
           Tell Us More
         </h1>
         <p className="text-[15px] text-[#555555] leading-relaxed border-l-4 border-[#DC2626] pl-4">
-          Tell us about your startup. We&apos;ll craft your investor communication and unlock the full analysis suite.
+          Before looking to fundraise or reach out to investors, get the answers to the questions below nailed down and your chances of success will be higher.
         </p>
       </div>
 
