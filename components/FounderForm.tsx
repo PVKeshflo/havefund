@@ -208,7 +208,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.startupName}
                 onChange={set("startupName") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
             <div>
@@ -371,7 +371,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.mrr}
                 onChange={set("mrr") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
             <div>
@@ -381,7 +381,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.cac}
                 onChange={set("cac") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
             <div>
@@ -391,7 +391,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.ltv}
                 onChange={set("ltv") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
             <div>
@@ -401,7 +401,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.retentionRate}
                 onChange={set("retentionRate") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
             <div>
@@ -411,7 +411,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.burnRate}
                 onChange={set("burnRate") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
             <div>
@@ -421,7 +421,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 value={form.runway}
                 onChange={set("runway") as (e: React.ChangeEvent<HTMLInputElement>) => void}
                 required
-                limit={30}
+                limit={20}
               />
             </div>
           </div>
