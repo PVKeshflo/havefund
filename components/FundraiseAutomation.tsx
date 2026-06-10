@@ -192,13 +192,13 @@ export default function FundraiseAutomation({
               Founders like you should give 100% of their attention to building the startup.
             </p>
             <p className="text-[14px] text-[#555555] leading-relaxed">
-              The best founders we know didn&apos;t close their round because they were great at sending cold emails. They closed because they had a great product — and someone else handled the introductions.
+              The best founders we know didn&apos;t close their round because they were great at sending cold emails. They closed because they had a great product — and someone else handled the introductions. That&apos;s what we&apos;re building.
             </p>
             <div className="space-y-2.5 pt-1">
               {[
                 "We identify VCs actively deploying in your stage, industry, and country",
-                "We craft a personalised warm introduction and send it on your behalf",
-                "You get notified the moment a VC responds — you only talk to interested parties",
+                "We review your profile and personally connect you with the right investors",
+                "You only talk to people who are already interested — no cold outreach on your end",
                 "No relationship-building grind. No cold email guesswork. Just build.",
               ].map((point, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -209,6 +209,10 @@ export default function FundraiseAutomation({
                 </div>
               ))}
             </div>
+            <div className="border-2 border-[#0A0A0A] px-4 py-3 shadow-[2px_2px_0px_0px_#0A0A0A] bg-[#F5F5F5]">
+              <p className="text-[11px] font-black tracking-widest uppercase text-[#555555] mb-1">Currently in early access</p>
+              <p className="text-[13px] text-[#0A0A0A]">Register your interest below — we&apos;ll review your profile and be in touch within 48 hours.</p>
+            </div>
           </div>
         </BrickBlock>
 
@@ -217,7 +221,7 @@ export default function FundraiseAutomation({
           <BrickBlock accentColor="black" label="Register Your Interest">
             <div className="space-y-4">
               <p className="text-[14px] text-[#555555] leading-relaxed">
-                Drop your email below. We&apos;ll identify the VCs that best fit your startup and reach out on your behalf — so you can stay focused on what matters.
+                Drop your email below. We&apos;ll review your startup profile, match you with the right VCs, and be in touch within 48 hours.
               </p>
               <form onSubmit={handleRegister} className="space-y-3">
                 <input
@@ -251,10 +255,10 @@ export default function FundraiseAutomation({
             </div>
             <div className="p-6 space-y-4">
               <p className="text-[22px] font-black text-[#0A0A0A] leading-tight">
-                Interest registered. Now go build something great.
+                Interest registered. We&apos;ll be in touch within 48 hours.
               </p>
               <p className="text-[14px] text-[#555555] leading-relaxed">
-                We&apos;ll review your profile and reach out to the VCs that best match your stage, industry, and thesis. You&apos;ll hear from us as soon as they respond — no chasing, no cold emails, no wasted afternoons.
+                We&apos;ll review your profile, match it against the VCs that fit your stage and thesis, and reach out to you directly. In the meantime — go build.
               </p>
               {topVCs.length > 0 && (
                 <div className="pt-2">
