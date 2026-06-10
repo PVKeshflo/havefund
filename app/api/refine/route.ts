@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
       industry,
       country,
       stage,
+      currency,
       amountRaising,
       problemStatement,
       problemFrequency,
@@ -55,7 +56,7 @@ FOUNDER BRIEF:
 - Industry: ${industry}
 - Country: ${country}
 - Stage: ${stage}
-- Raising: ${amountRaising}
+- Raising: ${currency} ${amountRaising}
 - Problem: ${problemStatement}
 - How often it happens: ${problemFrequency}
 - Measurable impact: ${problemImpact}
@@ -76,7 +77,7 @@ Return ONLY valid JSON with this exact structure:
     "industry": "${industry}",
     "country": "${country}",
     "stage": "${stage}",
-    "amountRaising": "${amountRaising}",
+    "amountRaising": "${currency} ${amountRaising}",
     "problem": "crisp problem statement",
     "solution": "crisp solution statement",
     "traction": "key traction highlights",

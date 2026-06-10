@@ -9,6 +9,7 @@ export interface FounderBrief {
   industry: string;
   country: string;
   stage: string;
+  currency: string;
   amountRaising: string;
   problemStatement: string;
   problemFrequency: string;
@@ -28,6 +29,7 @@ interface FounderFormProps {
 
 const INDUSTRIES = ["Fintech", "Healthtech", "SaaS", "DeepTech", "Consumer", "Climate", "EdTech", "Other"];
 const STAGES = ["Pre-seed", "Seed", "Series A", "Series B+"];
+const CURRENCIES = ["USD", "EUR", "GBP", "SGD", "MYR", "AUD", "CAD", "INR", "IDR", "AED", "JPY", "CHF"];
 const BLOCK3_LIMIT = 50;
 
 const inputClass =
@@ -112,6 +114,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     industry: "SaaS",
     country: "",
     stage: "Seed",
+    currency: "USD",
     amountRaising: "",
     problemStatement: "",
     problemFrequency: "",
@@ -228,13 +231,22 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
             </div>
             <div>
               <label className={labelClass}>Amount Raising</label>
-              <input
-                className={inputClass}
-                placeholder="$2M"
-                value={form.amountRaising}
-                onChange={set("amountRaising")}
-                required
-              />
+              <div className="flex gap-2">
+                <select
+                  className="border-2 border-[#0A0A0A] px-2 py-3 text-[13px] font-black text-[#0A0A0A] bg-white focus:outline-none focus:border-[#DC2626] shadow-[3px_3px_0px_0px_#0A0A0A] focus:shadow-[3px_3px_0px_0px_#DC2626] transition-all shrink-0"
+                  value={form.currency}
+                  onChange={set("currency")}
+                >
+                  {CURRENCIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+                <input
+                  className={`${inputClass} flex-1`}
+                  placeholder="2M"
+                  value={form.amountRaising}
+                  onChange={set("amountRaising")}
+                  required
+                />
+              </div>
             </div>
           </div>
           <div>
@@ -272,7 +284,7 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
           </div>
 
           <div>
-            <label className={labelClass}>What measurable impact occurs when it happens?</label>
+            <label className={labelClass}>What does it cost them? (money, time, or customers lost)</label>
             <LimitedInput
               placeholder="e.g. 30% cash flow gap, avg. $50k lost per quarter"
               value={form.problemImpact}

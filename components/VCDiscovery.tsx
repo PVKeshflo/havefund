@@ -71,7 +71,7 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
           Email + VC Match
         </h2>
         <p className="text-[15px] text-[#555555] leading-relaxed border-l-4 border-[#DC2626] pl-4">
-          Investors actively deploying in your stage, industry, and geography — with their live fund details.
+          Investors actively deploying in your stage, industry, and geography. <span className="font-black text-[#0A0A0A]">Active Fund</span> confirms they have capital to deploy. <span className="font-black text-[#0A0A0A]">Last Deal</span> confirms they are still making investments.
         </p>
       </div>
 
@@ -130,21 +130,9 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] tracking-widest uppercase font-black text-white/70 border border-white/30 px-2 py-0.5">
-                    {inv.stage}
-                  </span>
-                  {inv.website && (
-                    <a
-                      href={inv.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/80 hover:text-white text-[13px] transition-colors"
-                    >
-                      ↗
-                    </a>
-                  )}
-                </div>
+                <span className="text-[10px] tracking-widest uppercase font-black text-white/70 border border-white/30 px-2 py-0.5">
+                  {inv.stage}
+                </span>
               </div>
 
               {/* Card body */}
@@ -170,6 +158,18 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                       </span>
                     ))}
                   </div>
+                )}
+
+                {/* Website link */}
+                {inv.website && (
+                  <a
+                    href={inv.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-[#DC2626] border-2 border-[#DC2626] px-3 py-1.5 shadow-[2px_2px_0px_0px_#DC2626] hover:bg-[#DC2626] hover:text-white transition-all"
+                  >
+                    {inv.website.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗
+                  </a>
                 )}
 
                 {/* Active fund + last investment */}

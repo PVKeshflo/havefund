@@ -26,12 +26,16 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
   async function fetchMarket() {
     setLoading(true);
     setError("");
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 55000);
     try {
       const res = await fetch("/api/market", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ industry, startupSummary }),
+        signal: controller.signal,
       });
+      clearTimeout(timer);
       const text = await res.text();
       let json: MarketData & { error?: string };
       try {
@@ -43,7 +47,12 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
       setData(json);
       onComplete(json);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load market data.");
+      clearTimeout(timer);
+      if (err instanceof Error && err.name === "AbortError") {
+        setError("Analysis timed out — this sometimes happens with complex markets. Please retry.");
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to load market data.");
+      }
     } finally {
       setLoading(false);
     }
@@ -70,7 +79,7 @@ export default function MarketLandscape({ industry, startupSummary, onComplete }
         <div className="space-y-12">
           <FetchingNotice
             title="Analysing market landscape…"
-            detail={`Researching ${industry} market size, competitors, and trends in ${startupSummary.country || "your region"} — this takes 15–30 seconds.`}
+            detail={`Researching ${industry} market size, competitors, and trends in ${startupSummary.country || "your region"} — usually takes 20–40 seconds.`}
           />
           <div className="grid grid-cols-3 gap-px border border-[#E5E5E5]">
             {["TAM", "SAM", "SOM"].map((label) => (

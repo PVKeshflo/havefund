@@ -9,59 +9,49 @@ export async function POST(req: NextRequest) {
 
     const country = startupSummary.country || "the startup's country";
 
-    const prompt = `You are a market research analyst. Provide a comprehensive market landscape analysis for a ${industry} startup incorporated in ${country}.
+    const prompt = `You are a market research analyst. Give a concise market landscape for a ${industry} startup in ${country}.
 
-STARTUP CONTEXT:
-- Name: ${startupSummary.name}
-- Country: ${country}
+STARTUP:
 - Problem: ${startupSummary.problem}
 - Solution: ${startupSummary.solution}
 - Unique angle: ${startupSummary.uniqueAngle}
 
-IMPORTANT: Ground all analysis in ${country} and its immediate region. Specifically:
-- Market size figures (TAM/SAM/SOM) should reflect the ${country} market, or the regional market if the country is small. Include global context only as secondary reference.
-- Competitors should prioritise players active in ${country} or the region. Include global competitors only if they operate there.
-- Trends and tailwinds should reflect regulatory, economic, or adoption dynamics specific to ${country} / the region.
-- Risks should include country-specific factors (regulation, infrastructure, market maturity).
+Rules:
+- TAM/SAM/SOM figures must be for ${country} or its immediate region (not global).
+- List exactly 3 competitors active in ${country} or the region.
+- Trends, tailwinds, and risks must be specific to ${country}.
+- Be concise — each field is one tight sentence with a number where possible.
 
-Return ONLY valid JSON with this exact structure:
+Return ONLY valid JSON:
 {
   "marketSize": {
-    "tam": "Total Addressable Market in ${country}/region with figure and source",
-    "sam": "Serviceable Addressable Market with figure",
-    "som": "Serviceable Obtainable Market with figure"
+    "tam": "TAM for ${country}/region with a figure",
+    "sam": "SAM with a figure",
+    "som": "SOM with a figure"
   },
   "keyTrends": [
-    "Trend 1 with specific data point relevant to ${country}",
-    "Trend 2 with specific data point",
-    "Trend 3 with specific data point",
-    "Trend 4 with specific data point",
-    "Trend 5 with specific data point"
+    "Trend 1 with data point",
+    "Trend 2 with data point",
+    "Trend 3 with data point"
   ],
   "competitors": [
-    {
-      "name": "Competitor name",
-      "positioning": "How they position themselves",
-      "funding": "Funding stage or amount if known"
-    }
+    { "name": "Name", "positioning": "One-sentence positioning", "funding": "Stage or amount" },
+    { "name": "Name", "positioning": "One-sentence positioning", "funding": "Stage or amount" },
+    { "name": "Name", "positioning": "One-sentence positioning", "funding": "Stage or amount" }
   ],
   "tailwinds": [
-    "Macro or regional force 1 favoring this startup in ${country}",
-    "Macro or regional force 2",
-    "Macro or regional force 3"
+    "Tailwind 1 specific to ${country}",
+    "Tailwind 2 specific to ${country}"
   ],
   "risks": [
-    "Key market or country-specific risk 1",
-    "Key market risk 2",
-    "Key market risk 3"
+    "Risk 1 specific to ${country}",
+    "Risk 2 specific to ${country}"
   ]
-}
-
-Use real data. Be specific with numbers and sources where possible.`;
+}`;
 
     const message = await anthropic.messages.create({
       model: MODEL,
-      max_tokens: 3000,
+      max_tokens: 1800,
       messages: [{ role: "user", content: prompt }],
     });
 
