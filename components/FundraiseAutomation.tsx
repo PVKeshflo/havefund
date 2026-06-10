@@ -210,8 +210,8 @@ export default function FundraiseAutomation({
               ))}
             </div>
             <div className="border-2 border-[#0A0A0A] px-4 py-3 shadow-[2px_2px_0px_0px_#0A0A0A] bg-[#F5F5F5]">
-              <p className="text-[11px] font-black tracking-widest uppercase text-[#555555] mb-1">Currently in early access</p>
-              <p className="text-[13px] text-[#0A0A0A]">Register your interest below — we&apos;ll review your profile and be in touch within 48 hours.</p>
+              <p className="text-[11px] font-black tracking-widest uppercase text-[#555555] mb-1">Coming soon</p>
+              <p className="text-[13px] text-[#0A0A0A]">This feature is in development. Register below and we&apos;ll notify you when it&apos;s live.</p>
             </div>
           </div>
         </BrickBlock>
@@ -221,7 +221,7 @@ export default function FundraiseAutomation({
           <BrickBlock accentColor="black" label="Register Your Interest">
             <div className="space-y-4">
               <p className="text-[14px] text-[#555555] leading-relaxed">
-                Drop your email below. We&apos;ll review your startup profile, match you with the right VCs, and be in touch within 48 hours.
+                This feature is coming soon. Drop your email and we&apos;ll notify you the moment it&apos;s live — no spam, just one message when it&apos;s ready.
               </p>
               <form onSubmit={handleRegister} className="space-y-3">
                 <input
@@ -240,7 +240,7 @@ export default function FundraiseAutomation({
                   disabled={submitting}
                   className="w-full bg-[#DC2626] text-white py-4 text-[13px] font-black tracking-widest uppercase border-2 border-[#0A0A0A] shadow-[5px_5px_0px_0px_#0A0A0A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0px_0px_#0A0A0A] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Registering…" : "Get Me in Front of the Right VCs →"}
+                  {submitting ? "Registering…" : "Notify Me When It's Live →"}
                 </button>
               </form>
             </div>
@@ -255,15 +255,15 @@ export default function FundraiseAutomation({
             </div>
             <div className="p-6 space-y-4">
               <p className="text-[22px] font-black text-[#0A0A0A] leading-tight">
-                Interest registered. We&apos;ll be in touch within 48 hours.
+                You&apos;re on the list.
               </p>
               <p className="text-[14px] text-[#555555] leading-relaxed">
-                We&apos;ll review your profile, match it against the VCs that fit your stage and thesis, and reach out to you directly. In the meantime — go build.
+                We&apos;ll send you one email when the feature is live. Until then — go build.
               </p>
               {topVCs.length > 0 && (
                 <div className="pt-2">
                   <p className="text-[10px] font-black tracking-widest uppercase text-[#555555] mb-3">
-                    VCs we&apos;ll reach out to on your behalf
+                    VCs that match your profile
                   </p>
                   <div className="space-y-2">
                     {topVCs.map((vc) => (
