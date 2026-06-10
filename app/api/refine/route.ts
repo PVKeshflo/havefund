@@ -22,7 +22,12 @@ export async function POST(req: NextRequest) {
       successMetric,
       whyNotDoneBefore,
       defensibility,
-      financialsYTD,
+      mrr,
+      cac,
+      ltv,
+      retentionRate,
+      burnRate,
+      runway,
       milestonesAchieved,
     } = body;
 
@@ -65,7 +70,7 @@ FOUNDER BRIEF:
 - Success metric: ${successMetric}
 - Why not done before: ${whyNotDoneBefore}
 - Defensibility: ${defensibility}
-- Financials (MRR/CAC/LTV/Retention/Burn/Runway): ${financialsYTD}
+- MRR: ${mrr} | CAC: ${cac} | LTV: ${ltv} | Retention: ${retentionRate} | Burn: ${burnRate} | Runway: ${runway}
 - Milestones achieved: ${milestonesAchieved}
 
 Return ONLY valid JSON with this exact structure:

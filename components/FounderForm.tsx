@@ -19,7 +19,12 @@ export interface FounderBrief {
   successMetric: string;
   whyNotDoneBefore: string;
   defensibility: string;
-  financialsYTD: string;
+  mrr: string;
+  cac: string;
+  ltv: string;
+  retentionRate: string;
+  burnRate: string;
+  runway: string;
   milestonesAchieved: string;
 }
 
@@ -124,7 +129,12 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     successMetric: "",
     whyNotDoneBefore: "",
     defensibility: "",
-    financialsYTD: "",
+    mrr: "",
+    cac: "",
+    ltv: "",
+    retentionRate: "",
+    burnRate: "",
+    runway: "",
     milestonesAchieved: "",
   });
   const [loading, setLoading] = useState(false);
@@ -349,21 +359,77 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
 
         {/* Block 05 — Traction */}
         <BrickBlock accentColor="red" label="Block 05 — Traction">
-          <div>
-            <label className={labelClass}>Financials (MRR, CAC, LTV, Retention Rate, Burn Rate, Runway)</label>
-            <LimitedInput
-              placeholder="e.g. $18k MRR, 3% churn, 14 months runway"
-              value={form.financialsYTD}
-              onChange={set("financialsYTD") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-              required
-              limit={80}
-            />
+          <p className="text-[11px] text-[#555555] tracking-wide -mt-1">
+            Put <span className="font-black text-[#0A0A0A]">NA</span> for any metric you don&apos;t have yet.
+          </p>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>MRR — Monthly Recurring Revenue</label>
+              <LimitedInput
+                placeholder="e.g. $18k"
+                value={form.mrr}
+                onChange={set("mrr") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                required
+                limit={30}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>CAC — Customer Acquisition Cost</label>
+              <LimitedInput
+                placeholder="e.g. $120"
+                value={form.cac}
+                onChange={set("cac") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                required
+                limit={30}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>LTV — Lifetime Value</label>
+              <LimitedInput
+                placeholder="e.g. $960"
+                value={form.ltv}
+                onChange={set("ltv") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                required
+                limit={30}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Retention Rate</label>
+              <LimitedInput
+                placeholder="e.g. 92%"
+                value={form.retentionRate}
+                onChange={set("retentionRate") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                required
+                limit={30}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Burn Rate</label>
+              <LimitedInput
+                placeholder="e.g. $30k / mo"
+                value={form.burnRate}
+                onChange={set("burnRate") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                required
+                limit={30}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Runway</label>
+              <LimitedInput
+                placeholder="e.g. 14 months"
+                value={form.runway}
+                onChange={set("runway") as (e: React.ChangeEvent<HTMLInputElement>) => void}
+                required
+                limit={30}
+              />
+            </div>
           </div>
 
           <div>
             <label className={labelClass}>Milestones Achieved</label>
             <LimitedInput
-              placeholder="e.g. 120 paying customers, Series A term sheet signed"
+              placeholder="e.g. 120 paying customers, partnership signed"
               value={form.milestonesAchieved}
               onChange={set("milestonesAchieved") as (e: React.ChangeEvent<HTMLInputElement>) => void}
               required
