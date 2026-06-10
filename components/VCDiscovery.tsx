@@ -11,6 +11,7 @@ interface Investor {
   location: string;
   notablePortfolio: string[];
   activeFund: string;
+  whyMatch: string;
   website: string;
 }
 
@@ -144,6 +145,16 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
 
                 {/* Focus */}
                 <p className="text-[13px] text-[#0A0A0A] leading-relaxed">{inv.focus}</p>
+
+                {/* Why this VC matches this founder */}
+                {inv.whyMatch && (
+                  <div className="flex items-start gap-2 border-l-4 border-[#DC2626] pl-3 py-0.5">
+                    <p className="text-[12px] text-[#0A0A0A] leading-snug">
+                      <span className="font-black text-[#DC2626] uppercase tracking-widest text-[10px] mr-2">Why you</span>
+                      {inv.whyMatch}
+                    </p>
+                  </div>
+                )}
 
                 {/* Portfolio tags */}
                 {inv.notablePortfolio?.length > 0 && (

@@ -43,6 +43,7 @@ Return ONLY valid JSON with this exact structure:
       "location": "City, Country",
       "notablePortfolio": ["Company 1", "Company 2", "Company 3"],
       "activeFund": "Current active fund name, size, and vintage year e.g. Accel XIV ($650M, 2023)",
+      "whyMatch": "One sentence explaining why this VC fits this specific founder — reference their stage (${stage}), industry (${industry}), and country (${country}) explicitly e.g. 'Backs ${stage} ${industry} companies in ${country} and has deployed into this exact vertical before.'",
       "website": "https://..."
     }
   ]

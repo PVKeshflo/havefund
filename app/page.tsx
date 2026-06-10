@@ -15,6 +15,7 @@ interface Investor {
   location: string;
   notablePortfolio: string[];
   activeFund: string;
+  whyMatch: string;
   website: string;
 }
 
