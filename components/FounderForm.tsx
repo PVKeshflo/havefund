@@ -147,6 +147,12 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
   }
 
+  function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const digits = e.target.value.replace(/\D/g, "");
+    const formatted = digits ? Number(digits).toLocaleString("en-US") : "";
+    setForm((prev) => ({ ...prev, amountRaising: formatted }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -251,9 +257,9 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 </select>
                 <input
                   className={`${inputClass} flex-1`}
-                  placeholder="2M"
+                  placeholder="1,000,000"
                   value={form.amountRaising}
-                  onChange={set("amountRaising")}
+                  onChange={handleAmountChange}
                   required
                 />
               </div>
