@@ -43,7 +43,6 @@ Return ONLY valid JSON with this exact structure:
       "location": "City, Country",
       "notablePortfolio": ["Company 1", "Company 2", "Company 3"],
       "activeFund": "Current active fund name, size, and vintage year e.g. Accel XIV ($650M, 2023)",
-      "lastInvestment": "Most recent known investment e.g. Mistral AI — Series B, Dec 2023",
       "website": "https://..."
     }
   ]

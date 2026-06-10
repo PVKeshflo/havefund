@@ -11,7 +11,6 @@ interface Investor {
   location: string;
   notablePortfolio: string[];
   activeFund: string;
-  lastInvestment: string;
   website: string;
 }
 
@@ -71,7 +70,7 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
           Email + VC Match
         </h2>
         <p className="text-[15px] text-[#555555] leading-relaxed border-l-4 border-[#DC2626] pl-4">
-          Investors actively deploying in your stage, industry, and geography. <span className="font-black text-[#0A0A0A]">Active Fund</span> confirms they have capital to deploy. <span className="font-black text-[#0A0A0A]">Last Deal</span> confirms they are still making investments.
+          Investors actively deploying in your stage, industry, and geography. <span className="font-black text-[#0A0A0A]">Active Fund</span> confirms they have capital to deploy right now.
         </p>
       </div>
 
@@ -172,25 +171,15 @@ export default function VCDiscovery({ country, stage, industry, startupSummary, 
                   </a>
                 )}
 
-                {/* Active fund + last investment */}
-                <div className="space-y-2 pt-1">
-                  {inv.activeFund && (
-                    <div className="flex items-start gap-3 border-2 border-[#0A0A0A] px-3 py-2.5 shadow-[2px_2px_0px_0px_#0A0A0A]">
-                      <span className="text-[9px] font-black tracking-widest uppercase text-white bg-[#0A0A0A] px-2 py-1 shrink-0 mt-0.5">
-                        Fund
-                      </span>
-                      <p className="text-[12px] text-[#0A0A0A] leading-snug">{inv.activeFund}</p>
-                    </div>
-                  )}
-                  {inv.lastInvestment && (
-                    <div className="flex items-start gap-3 border-2 border-[#DC2626] px-3 py-2.5 shadow-[2px_2px_0px_0px_#DC2626]">
-                      <span className="text-[9px] font-black tracking-widest uppercase text-white bg-[#DC2626] px-2 py-1 shrink-0 mt-0.5">
-                        Last
-                      </span>
-                      <p className="text-[12px] text-[#0A0A0A] leading-snug">{inv.lastInvestment}</p>
-                    </div>
-                  )}
-                </div>
+                {/* Active fund */}
+                {inv.activeFund && (
+                  <div className="flex items-start gap-3 border-2 border-[#0A0A0A] px-3 py-2.5 shadow-[2px_2px_0px_0px_#0A0A0A]">
+                    <span className="text-[9px] font-black tracking-widest uppercase text-white bg-[#0A0A0A] px-2 py-1 shrink-0 mt-0.5">
+                      Fund
+                    </span>
+                    <p className="text-[12px] text-[#0A0A0A] leading-snug">{inv.activeFund}</p>
+                  </div>
+                )}
               </div>
             </div>
           ))}
