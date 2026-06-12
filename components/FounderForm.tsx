@@ -81,27 +81,35 @@ function LimitedInput({ value, onChange, placeholder, required, limit = BLOCK3_L
   );
 }
 
-// Numeric metric input with unit boxes (currency prefix / months suffix).
+// Numeric metric input with unit boxes (currency dropdown prefix / months suffix).
 // Accepts digits (auto comma-formatted) or NA for metrics not available yet.
 function MetricInput({
   value,
   onChange,
   placeholder,
-  prefix,
+  currency,
+  onCurrencyChange,
   suffix,
 }: {
   value: string;
   onChange: (v: string) => void;
   placeholder: string;
-  prefix?: string;
+  currency?: string;
+  onCurrencyChange?: (c: string) => void;
   suffix?: string;
 }) {
   return (
     <div className="flex shadow-[3px_3px_0px_0px_#0A0A0A] focus-within:shadow-[3px_3px_0px_0px_#DC2626] transition-all">
-      {prefix && (
-        <span className="border-2 border-r-0 border-[#0A0A0A] bg-[#0A0A0A] text-white px-2.5 text-[11px] font-black tracking-wider flex items-center shrink-0">
-          {prefix}
-        </span>
+      {currency !== undefined && (
+        <select
+          className="border-2 border-r-0 border-[#0A0A0A] bg-[#0A0A0A] text-white px-1.5 text-[11px] font-black tracking-wider shrink-0 focus:outline-none cursor-pointer"
+          value={currency}
+          onChange={(e) => onCurrencyChange?.(e.target.value)}
+        >
+          {CURRENCIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
       )}
       <input
         type="text"
@@ -431,7 +439,8 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 placeholder="18,000"
                 value={form.mrr}
                 onChange={setMetric("mrr", true)}
-                prefix={form.currency}
+                currency={form.currency}
+                onCurrencyChange={(c) => setForm((prev) => ({ ...prev, currency: c }))}
               />
             </div>
             <div>
@@ -440,7 +449,8 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 placeholder="120"
                 value={form.cac}
                 onChange={setMetric("cac", true)}
-                prefix={form.currency}
+                currency={form.currency}
+                onCurrencyChange={(c) => setForm((prev) => ({ ...prev, currency: c }))}
               />
             </div>
             <div>
@@ -449,7 +459,8 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 placeholder="960"
                 value={form.ltv}
                 onChange={setMetric("ltv", true)}
-                prefix={form.currency}
+                currency={form.currency}
+                onCurrencyChange={(c) => setForm((prev) => ({ ...prev, currency: c }))}
               />
             </div>
             <div>
@@ -467,7 +478,8 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
                 placeholder="30,000"
                 value={form.burnRate}
                 onChange={setMetric("burnRate", true)}
-                prefix={form.currency}
+                currency={form.currency}
+                onCurrencyChange={(c) => setForm((prev) => ({ ...prev, currency: c }))}
                 suffix="/ mo"
               />
             </div>
