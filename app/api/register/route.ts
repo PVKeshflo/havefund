@@ -1,18 +1,18 @@
 export const maxDuration = 10;
 
 import { NextRequest, NextResponse } from "next/server";
+import { saveSubmission } from "@/lib/store";
 
 export async function POST(req: NextRequest) {
   try {
     const { email, startupName, startupSummary } = await req.json();
 
-    // Log registration — extend this with a database write or email trigger later
-    console.log("[register] New interest:", {
+    await saveSubmission("registrations", {
       email,
-      startup: startupName,
-      industry: startupSummary?.industry,
-      stage: startupSummary?.stage,
-      country: startupSummary?.country,
+      startupName,
+      industry: startupSummary?.industry ?? "",
+      stage: startupSummary?.stage ?? "",
+      country: startupSummary?.country ?? "",
     });
 
     return NextResponse.json({ success: true });

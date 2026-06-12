@@ -2,10 +2,19 @@ export const maxDuration = 60;
 
 import { NextRequest, NextResponse } from "next/server";
 import { anthropic, MODEL } from "@/lib/anthropic";
+import { saveSubmission } from "@/lib/store";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+
+    // Store every submission for export — never block the founder if storage fails
+    try {
+      await saveSubmission("briefs", body);
+    } catch (storeErr) {
+      console.error("/api/refine store error:", storeErr);
+    }
+
     const {
       startupName,
       founderInfo,
