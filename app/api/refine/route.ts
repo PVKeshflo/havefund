@@ -79,7 +79,7 @@ FOUNDER BRIEF:
 - Success metric: ${successMetric}
 - Why not done before: ${whyNotDoneBefore}
 - Defensibility: ${defensibility}
-- MRR: ${mrr} | CAC: ${cac} | LTV: ${ltv} | Retention: ${retentionRate} | Burn: ${burnRate} | Runway: ${runway}
+- MRR: ${currency} ${mrr} | CAC: ${currency} ${cac} | LTV: ${currency} ${ltv} | Retention: ${retentionRate}% | Burn: ${currency} ${burnRate}/month | Runway: ${runway} months
 - Milestones achieved: ${milestonesAchieved}
 
 Return ONLY valid JSON with this exact structure:

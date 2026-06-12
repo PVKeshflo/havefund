@@ -81,6 +81,46 @@ function LimitedInput({ value, onChange, placeholder, required, limit = BLOCK3_L
   );
 }
 
+// Numeric metric input with unit boxes (currency prefix / months suffix).
+// Accepts digits (auto comma-formatted) or NA for metrics not available yet.
+function MetricInput({
+  value,
+  onChange,
+  placeholder,
+  prefix,
+  suffix,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  prefix?: string;
+  suffix?: string;
+}) {
+  return (
+    <div className="flex shadow-[3px_3px_0px_0px_#0A0A0A] focus-within:shadow-[3px_3px_0px_0px_#DC2626] transition-all">
+      {prefix && (
+        <span className="border-2 border-r-0 border-[#0A0A0A] bg-[#0A0A0A] text-white px-2.5 text-[11px] font-black tracking-wider flex items-center shrink-0">
+          {prefix}
+        </span>
+      )}
+      <input
+        type="text"
+        className="w-full min-w-0 border-2 border-[#0A0A0A] px-3 py-3 text-[14px] text-[#0A0A0A] placeholder-[#AAAAAA] focus:outline-none focus:border-[#DC2626] bg-white"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        maxLength={12}
+        required
+      />
+      {suffix && (
+        <span className="border-2 border-l-0 border-[#0A0A0A] bg-[#E5E5E5] text-[#0A0A0A] px-2.5 text-[9px] font-black tracking-widest uppercase flex items-center shrink-0">
+          {suffix}
+        </span>
+      )}
+    </div>
+  );
+}
+
 // Lego brick block wrapper
 function BrickBlock({
   accentColor,
@@ -151,6 +191,21 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
     const digits = e.target.value.replace(/\D/g, "");
     const formatted = digits ? Number(digits).toLocaleString("en-US") : "";
     setForm((prev) => ({ ...prev, amountRaising: formatted }));
+  }
+
+  // Metric fields accept full numbers (comma-formatted) or NA — no short forms like 18k
+  function setMetric(field: keyof FounderBrief, withCommas: boolean) {
+    return (raw: string) => {
+      const digits = raw.replace(/\D/g, "");
+      const value = digits
+        ? withCommas
+          ? Number(digits).toLocaleString("en-US")
+          : digits
+        : raw.trim()
+          ? "NA"
+          : "";
+      setForm((prev) => ({ ...prev, [field]: value }));
+    };
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -366,68 +421,63 @@ export default function FounderForm({ onComplete }: FounderFormProps) {
         {/* Block 05 — Traction */}
         <BrickBlock accentColor="red" label="Block 05 — Traction">
           <p className="text-[11px] text-[#555555] tracking-wide -mt-1">
-            Put <span className="font-black text-[#0A0A0A]">NA</span> for any metric you don&apos;t have yet.
+            Use full numbers, not short form (<span className="font-black text-[#0A0A0A]">18,000</span> not 18k). Put <span className="font-black text-[#0A0A0A]">NA</span> for any metric you don&apos;t have yet. Currency follows Block 02.
           </p>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>MRR — Monthly Recurring Revenue</label>
-              <LimitedInput
-                placeholder="e.g. $18k"
+              <MetricInput
+                placeholder="18,000"
                 value={form.mrr}
-                onChange={set("mrr") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                required
-                limit={20}
+                onChange={setMetric("mrr", true)}
+                prefix={form.currency}
               />
             </div>
             <div>
               <label className={labelClass}>CAC — Customer Acquisition Cost</label>
-              <LimitedInput
-                placeholder="e.g. $120"
+              <MetricInput
+                placeholder="120"
                 value={form.cac}
-                onChange={set("cac") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                required
-                limit={20}
+                onChange={setMetric("cac", true)}
+                prefix={form.currency}
               />
             </div>
             <div>
               <label className={labelClass}>LTV — Lifetime Value</label>
-              <LimitedInput
-                placeholder="e.g. $960"
+              <MetricInput
+                placeholder="960"
                 value={form.ltv}
-                onChange={set("ltv") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                required
-                limit={20}
+                onChange={setMetric("ltv", true)}
+                prefix={form.currency}
               />
             </div>
             <div>
               <label className={labelClass}>Retention Rate</label>
-              <LimitedInput
-                placeholder="e.g. 92%"
+              <MetricInput
+                placeholder="92"
                 value={form.retentionRate}
-                onChange={set("retentionRate") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                required
-                limit={20}
+                onChange={setMetric("retentionRate", false)}
+                suffix="%"
               />
             </div>
             <div>
-              <label className={labelClass}>Burn Rate</label>
-              <LimitedInput
-                placeholder="e.g. $30k / mo"
+              <label className={labelClass}>Burn Rate (per month)</label>
+              <MetricInput
+                placeholder="30,000"
                 value={form.burnRate}
-                onChange={set("burnRate") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                required
-                limit={20}
+                onChange={setMetric("burnRate", true)}
+                prefix={form.currency}
+                suffix="/ mo"
               />
             </div>
             <div>
-              <label className={labelClass}>Runway</label>
-              <LimitedInput
-                placeholder="e.g. 14 months"
+              <label className={labelClass}>Runway (months)</label>
+              <MetricInput
+                placeholder="14"
                 value={form.runway}
-                onChange={set("runway") as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                required
-                limit={20}
+                onChange={setMetric("runway", false)}
+                suffix="months"
               />
             </div>
           </div>
